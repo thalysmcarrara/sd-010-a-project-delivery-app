@@ -24,6 +24,8 @@ function Checkout() {
 
   const dataUser = JSON.parse(localStorage.getItem('user'));
 
+  // console.log('dataUser:', dataUser);
+
   const createSale = async () => {
     const sale = {
       ...deliveryDetails,
@@ -31,6 +33,9 @@ function Checkout() {
       total_price: totalCart.replace(',', '.'),
       products: Object.values(cartStorage),
     };
+
+    console.log('createSale:', sale);
+
     const data = await requests.createSale(dataUser.token, sale);
     const CREATED_STATUS = 201;
     if (data.status === CREATED_STATUS) {
