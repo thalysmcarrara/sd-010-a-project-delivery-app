@@ -1,19 +1,22 @@
-const { Sale } = require('../database/models');
-// const saleSchema = require('../schemas/saleSchema');
+const moment = require('moment');
+const { Sale, SaleProduct } = require('../database/models');
 
-const create = async (order) => {
-  // const validateSale = saleSchema.validateSale.validate(order);
-  // if (validateSale.error) return { status: 422, message: validateSale.error.message };
+const create = async (order, id) => {
+  const date = moment().format('MM/DD/YYYY HH:mm:ss');
 
-  const sale = await Sale.create(order);
+  const sale = await Sale.create({ ...order, sale_date: date, user_id: id, status: 'Pendente' });
   if (!sale) return { status: 500, message: 'Internal Server Error' };
 
-  // const { id } = sale;
-  // await SaleProduct.create(
-  //   { saleId: id, productId: 2, quantity: 2 }
-  // );
+  const sale_id = sale.dataValues.id;
+  const quantity = order.products[0].quantity;
+  const product_id = order.products[0].productId;
 
-  return { status: 201, sale };
+  const createSaleProduct = await SaleProduct.create({ sale_id, quantity, product_id });
+  if (!createSaleProduct) return { status: 500, message: 'Sale not created' };
+
+  console.log(createSaleProduct);
+
+  return { saleId: sale.dataValues.id, status: 201, sale };
 };
 
 const getSale = async (id, role) => {

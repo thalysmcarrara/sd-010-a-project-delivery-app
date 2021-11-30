@@ -6,6 +6,8 @@ import Register from './pages/Register';
 import Orders from './pages/Orders';
 import CartProvider from './provider/Cart';
 import SellerOrders from './pages/SellerOrders';
+import Checkout from './pages/Checkout';
+import DetailsSell from './pages/DetailsSell';
 
 // rotas
 import paths from './routesPaths/paths';
@@ -21,7 +23,9 @@ function App() {
         <Route path={ paths.routeRegister } exact component={ Register } />
         <Route path={ paths.routeOrders } exact component={ Orders } />
         <Route path={ paths.routeSellerOrders } exact component={ SellerOrders } />
+        <Route path={ paths.routeDetailsSell } exact component={ DetailsSell } />
         <CartProvider>
+          <Route path={ paths.routeCheckout } exact component={ Checkout } />
           <Route path={ paths.routeProducts } exact component={ Products } />
         </CartProvider>
       </Switch>

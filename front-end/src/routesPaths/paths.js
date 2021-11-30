@@ -7,6 +7,8 @@ const paths = {
   routeProducts: '/customer/products',
   routeOrders: '/customer/orders',
   routeSellerOrders: '/seller/orders',
+  routeCheckout: '/customer/checkout',
+  routeDetailsSell: '/customer/ordes/:id',
 };
 
 export default paths;
