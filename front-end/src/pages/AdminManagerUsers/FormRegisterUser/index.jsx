@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import genHashMd5 from 'md5';
 import useAsync from '../../../hooks/useAsync';
 import validateFormRegister from '../../../utils/validateFormRegister';
 import useManagerUsersContext from '../../../hooks/useManagerUsersContext';
@@ -24,8 +23,7 @@ const FormRegisterUser = () => {
 
   const submitApiData = useCallback(() => {
     const { name, email, password, role } = formState;
-    const passwordHash = genHashMd5(password);
-    return fetchPostData({ name, email, password: passwordHash, role });
+    return fetchPostData({ name, email, password, role });
   }, [formState]);
 
   const { execute, status, value, error } = useAsync(submitApiData, false);
