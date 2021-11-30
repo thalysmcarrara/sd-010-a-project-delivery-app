@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
 // import { useParams } from 'react-router';
 import { getSaleBySellerId } from '../utils/Data';
-// import { priceFormat } from '../utils/Format';
+import dateFormatation, { priceFormat } from '../utils/Format';
 // import Header from '../Components/Header';
 
 export default function SellerOrderDetails() {
   const [order, setOrders] = useState([]);
   const [inProgress] = useState(false);
   const [orderReady] = useState(false);
-  // const user = JSON.parse(localStorage.getItem('user'));
-  // const { token } = user;
-  // const { id } = useParams;
 
   const dataTestIds = {
     labelOrderId: 'seller_order_details__element-order-details-label-order-id',
-    deliveryStatus: 'seller_order_details__element-order-details-label-delivery-status',
+    deliveryStatus:
+      'seller_order_details__element-order-details-label-delivery-status',
     orderDate: 'seller_order_details__element-order-details-label-order-date',
     buttonPreparingCheck: 'seller_order_details__button-preparing-check',
     buttonDispatchCheck: 'seller_order_details__button-dispatch-check',
@@ -39,58 +37,79 @@ export default function SellerOrderDetails() {
     renderSales();
   }, []);
 
-  if (!order) return <p>Loading...</p>;
-
-  // const { id } = order;
+  // const { sale } = order;
   return (
     <div>
       <h1>Detalhes do pedido - vendedor</h1>
-      <div className="card-top-bar">
-        <div data-testid={ dataTestIds.labelOrderId }>{}</div>
-        <div data-testid={ dataTestIds.orderDate }>{ order.saleDate }</div>
-        <div data-testid={ dataTestIds.deliveryStatus }>{order.status}</div>
-        <button
-          data-testid={ dataTestIds.buttonPreparingCheck }
-          name="prepare-order"
-          disabled={ inProgress }
-          onClick={ handleClick }
-          type="button"
-        >
-          PREPARAR PEDIDO
-        </button>
-        <button
-          data-testid={ dataTestIds.buttonDispatchCheck }
-          name="deliver-order"
-          disabled={ !orderReady }
-          onClick={ handleClick }
-          type="button"
-        >
-          SAIU PARA ENTREGA
-        </button>
-      </div>
-      <div className="card-list">
-        <ul>
-          {order
-            .map(({ description, quantity, unitaryValue, subTotal }, index) => (
-              <li key={ index }>
-                <div data-testid={ `${dataTestIds.itemNumber}${index}` }>{index}</div>
-                <div data-testid={ `${dataTestIds.tableName}${index}` }>
-                  {description}
-                </div>
-                <div data-testid={ `${dataTestIds.tableQuantity}${index}` }>
-                  {quantity}
-                </div>
-                <div data-testid={ `${dataTestIds.tableUnitPrice}${index}` }>
-                  {(unitaryValue)}
-                </div>
-                <div data-testid={ `${dataTestIds.tableSuTotal}${index}` }>
-                  {(subTotal)}
-                </div>
-              </li>
-            ))}
-        </ul>
-        <div data-testid={ dataTestIds.totalPrice }>{(order.totalPrice)}</div>
-      </div>
+      {!order
+        ? 'Loading'
+        : order.map((sale) => (
+          <div className="card-top-bar" key={ sale.id }>
+            <div data-testid={ dataTestIds.labelOrderId }>{sale.id}</div>
+            <div
+              data-testid={ dataTestIds
+                .orderDate }
+            >
+              {dateFormatation(sale.saleDate)}
+
+            </div>
+            <div data-testid={ dataTestIds.deliveryStatus }>{sale.status}</div>
+            <button
+              data-testid={ dataTestIds.buttonPreparingCheck }
+              name="prepare-order"
+              disabled={ inProgress }
+              onClick={ handleClick }
+              type="button"
+            >
+              PREPARAR PEDIDO
+            </button>
+            <button
+              data-testid={ dataTestIds.buttonDispatchCheck }
+              name="deliver-order"
+              disabled={ !orderReady }
+              onClick={ handleClick }
+              type="button"
+            >
+              SAIU PARA ENTREGA
+            </button>
+            <div className="card-list">
+              <ul>
+                {sale.products.map((product, index) => (
+                  <li key={ index }>
+                    <div data-testid={ `${dataTestIds.itemNumber}${index}` }>
+                      {index + 1}
+                    </div>
+                    <div data-testid={ `${dataTestIds.tableName}${index}` }>
+                      {product.name}
+                    </div>
+                    <div
+                      data-testid={ `${dataTestIds.tableQuantity}${index}` }
+                    >
+                      {product.saleProduct.quantity}
+                    </div>
+                    <div
+                      data-testid={ `${dataTestIds.tableUnitPrice}${index}` }
+                    >
+                      {priceFormat(product.price)}
+                    </div>
+                    <div
+                      data-testid={ `${dataTestIds.tableSuTotal}${index}` }
+                    >
+                      { () => {
+                        const result = product.saleProduct.quantity * product.price;
+                        console.log(result);
+                        return priceFormat(result);
+                      }}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <div data-testid={ priceFormat(dataTestIds.totalPrice) }>
+                {sale.totalPrice}
+              </div>
+            </div>
+          </div>
+        ))}
     </div>
   );
 }

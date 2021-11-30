@@ -17,7 +17,12 @@ const getSales = async (id) => {
 };
 
 const getSalesBySellerId = async (id) => {
-  const salesList = await sale.findAll({ where: { sellerId: id } });
+  const salesList = await sale.findAll({ include: [{
+    model: product,
+    as: 'products',
+  }, 
+  ],
+  where: { sellerId: id } });
   console.log(salesList);
   return salesList;
 };
