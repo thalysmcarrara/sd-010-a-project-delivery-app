@@ -10,7 +10,7 @@ import Select from '../../../components/Select';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import './styles.css';
 
-const fetchPostData = (userData) => api.post('/user', userData)
+const fetchPostData = (userData) => api.post('/user/admin', userData)
   .then((response) => response.data)
   .catch((error) => error.response.data);
 
