@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import '../styles/saleCard.css';
 
 function SaleCard({ sale }) {
-  const { id, status } = sale;
-  const saleDate = sale.sale_date;
+  const { id, status, saleDate } = sale;
 
   const allDate = saleDate.split('T');
   const thisDate = allDate[0].split('-');
@@ -46,7 +45,7 @@ SaleCard.propTypes = {
   sale: PropTypes.shape({
     id: PropTypes.number,
     status: PropTypes.string,
-    sale_date: PropTypes.string,
+    saleDate: PropTypes.string,
   }).isRequired,
 };
 

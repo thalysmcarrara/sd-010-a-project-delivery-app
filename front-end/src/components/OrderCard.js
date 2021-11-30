@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import '../styles/saleCard.css';
 
 function SaleCard({ sale }) {
-  const { id, status } = sale;
-  const saleDate = sale.sale_date;
+  const { id, status, saleDate, deliveryAddress } = sale;
+
   const totalPrice = sale.total_price.replace('.', ',');
-  const deliveryAddress = sale.delivery_address;
+  // const deliveryAddress = sale.delivery_address;
+
+  // console.log(sale);
 
   const allDate = saleDate.split('T');
   const thisDate = allDate[0].split('-');
@@ -63,9 +65,9 @@ SaleCard.propTypes = {
   sale: PropTypes.shape({
     id: PropTypes.number,
     status: PropTypes.string,
-    sale_date: PropTypes.string,
+    saleDate: PropTypes.string,
     total_price: PropTypes.string,
-    delivery_address: PropTypes.string,
+    deliveryAddress: PropTypes.string,
   }).isRequired,
 };
 
