@@ -17,7 +17,7 @@ export default function Cadastro() {
 
   const fetchPostData = async (userData) => {
     try {
-      const data = await api.post('/register', userData);
+      const data = await api.post('/user', userData);
       if (data.status > errorLoginHTTP) {
         setErrorLogin(true);
         return;
@@ -40,7 +40,6 @@ export default function Cadastro() {
   const handleButtonClick = async () => {
     const passwordHash = genHashMd5(passwordInput);
     await fetchPostData({ name: nameInput, email: emailInput, password: passwordHash });
-    console.log('handleButtonClick');
   };
 
   return (
@@ -83,7 +82,6 @@ export default function Cadastro() {
           />
         </label>
         <h2>{passwordInput}</h2>
-        <Link to="/customer/products">
           <button
             type="button"
             data-testid="common_register__button-register"
@@ -92,7 +90,6 @@ export default function Cadastro() {
           >
             Cadastrar
           </button>
-        </Link>
       </form>
       {
         errorRegsiter ? <ErrorBackend

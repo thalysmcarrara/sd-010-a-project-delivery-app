@@ -3,7 +3,7 @@ const find = require('../../services/find');
 const { isUserExists } = require('../../schemas');
 
 module.exports = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role = "customer" } = req.body;
   
   const isExists = await isUserExists({ name, email }, find);
   

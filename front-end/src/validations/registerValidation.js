@@ -1,9 +1,7 @@
-import { min } from 'moment';
-
 const Joi = require('joi');
 
 export default function registerValidation(name, email, password) {
-    const minNameValue = 11;
+  const minNameValue = 11;
   const minPassawordValue = 5;
   const schema = Joi.object({
     name: Joi.string()
