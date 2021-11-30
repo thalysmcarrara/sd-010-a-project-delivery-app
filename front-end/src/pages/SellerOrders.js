@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
-import SaleCard from '../components/SaleCard';
+import OrderCard from '../components/OrderCard';
 import * as request from '../services/requests';
 
 function Orders() {
@@ -23,7 +23,7 @@ function Orders() {
 
       <div>
         {Object.values(sales).map((sale) => (
-          <SaleCard key={ sale.id } sale={ sale } />
+          <OrderCard key={ sale.id } sale={ sale } />
         ))}
       </div>
 
