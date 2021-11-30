@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import genHashMd5 from 'md5';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import registerValidation from '../validations/registerValidation';
 import api from '../services/api';
 import ErrorBackend from './ErrorBackend/index';
@@ -82,14 +82,14 @@ export default function Cadastro() {
           />
         </label>
         <h2>{passwordInput}</h2>
-          <button
-            type="button"
-            data-testid="common_register__button-register"
-            onClick={ handleButtonClick }
-            disabled={ disabledBtn }
-          >
-            Cadastrar
-          </button>
+        <button
+          type="button"
+          data-testid="common_register__button-register"
+          onClick={ handleButtonClick }
+          disabled={ disabledBtn }
+        >
+          Cadastrar
+        </button>
       </form>
       {
         errorRegsiter ? <ErrorBackend
