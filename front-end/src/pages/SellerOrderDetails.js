@@ -64,29 +64,29 @@ export default function SellerOrderDetails() {
         ? 'Loading'
         : order.map((sale) => (
           <>
-            <div className="card-top-bar" key={sale.id}>
-              <div data-testid={dataTestIds.labelOrderId}>{sale.id}</div>
+            <div className="card-top-bar" key={ sale.id }>
+              <div data-testid={ dataTestIds.labelOrderId }>{sale.id}</div>
               <div
-                data-testid={dataTestIds
-                  .orderDate}
+                data-testid={ dataTestIds
+                  .orderDate }
               >
                 {dateFormatation(sale.saleDate)}
               </div>
-              <div data-testid={dataTestIds.deliveryStatus}>{sale.status}</div>
+              <div data-testid={ dataTestIds.deliveryStatus }>{sale.status}</div>
               <button
-                data-testid={dataTestIds.buttonPreparingCheck}
+                data-testid={ dataTestIds.buttonPreparingCheck }
                 name="prepare-order"
-                disabled={inProgress}
-                onClick={ ()=> changeStatus(item.id) }
-              type="button"
+                disabled={ inProgress }
+                onClick={ () => changeStatus(item.id) }
+                type="button"
               >
-              PREPARAR PEDIDO
+                PREPARAR PEDIDO
               </button>
               <button
-                data-testid={dataTestIds.buttonDispatchCheck}
+                data-testid={ dataTestIds.buttonDispatchCheck }
                 name="deliver-order"
-                disabled={!orderReady}
-                onClick={ ()=> changeStatus(item.id) }
+                disabled={ !orderReady }
+                onClick={ () => changeStatus(item.id) }
                 type="button"
               >
                 SAIU PARA ENTREGA
