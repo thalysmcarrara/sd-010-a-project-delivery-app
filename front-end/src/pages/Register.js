@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router';
 import postUser from '../services/requests';
+import '../styles/Register.css';
 
 const Register = () => {
   const [userData, setUserData] = useState({
@@ -45,9 +46,9 @@ const Register = () => {
   });
 
   return (
-    <div>
+    <div className="registerConteiner">
       <h1>Cadastro</h1>
-      <form>
+      <form className="formConteiner">
         <label htmlFor="name">
           Nome
           <input
@@ -69,6 +70,7 @@ const Register = () => {
           Senha
           <input
             id="input"
+            type="password"
             data-testid="common_register__input-password"
             name="password"
             onChange={ handleInputChange }
