@@ -5,8 +5,8 @@ const { isUserExists } = require('../../schemas');
 const generateToken = require('../../utils/generateToken');
 
 module.exports = async (req, res) => {
-  const passwordHash = genHashMd5(password);
   const { name, email, password, role = 'customer' } = req.body;
+  const passwordHash = genHashMd5(password);
   
   const isExists = await isUserExists({ name, email }, find);
   
