@@ -18,7 +18,7 @@ const FormRegisterUser = () => {
   const [messageErrorBackend, setMessageErrorBackend] = useState(false);
   const [formValidState, setFormValidState] = useState(false);
   const [formState, setFormState] = useState(
-    { name: '', email: '', password: '', role: 'client' },
+    { name: '', email: '', password: '', role: 'customer' },
   );
   const { setUser } = useManagerUsersContext();
 
@@ -118,8 +118,8 @@ const FormRegisterUser = () => {
           value={ formState.role }
           data-testid="admin_manage__select-role"
           options={ [
-            { name: 'Vendedor', value: 'salesman' },
-            { name: 'Cliente', value: 'client' },
+            { name: 'Vendedor', value: 'seller' },
+            { name: 'Cliente', value: 'customer' },
             { name: 'Administrator', value: 'administrator' },
           ] }
         />
@@ -132,7 +132,10 @@ const FormRegisterUser = () => {
         />
       </form>
 
-      { messageErrorBackend && <ErrorBackend messageError={ messageErrorBackend } />}
+      { messageErrorBackend && <ErrorBackend
+        messageError={ messageErrorBackend }
+        datatestid="admin_manage__element-invalid-register"
+      />}
     </div>
   );
 };
