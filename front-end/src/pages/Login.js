@@ -4,11 +4,17 @@ import paths from '../routesPaths/paths';
 import { goRoute } from '../utils/utils';
 import postUser from '../services/requests';
 
+const usersRedirectPaths = {
+  customer: 'customer/products',
+  seller: 'seller/orders',
+};
+
 const Login = () => {
   const [userData, setUserData] = useState({
     email: '',
     password: '',
   });
+  const [userType, setUserType] = useState('customer');
 
   const [loginErr, setLoginErr] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +34,7 @@ const Login = () => {
       const user = { token, ...data };
 
       localStorage.setItem('user', JSON.stringify(user));
+      setUserType(user.role);
       setIsLoading(true);
     }
   }
@@ -98,7 +105,7 @@ const Login = () => {
         }
         {
           isLoading && (
-            <Redirect to="/customer/products" />
+            <Redirect to={ usersRedirectPaths[userType] } />
           )
         }
       </form>

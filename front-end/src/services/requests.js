@@ -57,4 +57,14 @@ export async function getSales(dataUser) {
   return sales;
 }
 
+export async function getSaleById(token, id) {
+  const response = await fetch(`http://localhost:3001/sales/${id}`, {
+    method: methods[1],
+    headers: { 'Content-Type': contentType[0], Authorization: token },
+  });
+
+  const sale = await response.json();
+  return sale;
+}
+
 export default postUser;

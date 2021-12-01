@@ -9,15 +9,24 @@ const createSale = async (req, res) => {
   return res.status(201).json({ saleId });
 };
 
-const getSaleById = async (req, res) => {
+const getSales = async (req, res) => {
   const { id, role } = req.user;
   
-  const { status, message, sales } = await saleService.getSale(id, role);
+  const { status, message, sales } = await saleService.getSales(id, role);
   if (!sales) return res.status(status).json({ message });
   return res.status(status).json(sales);
 };
 
+const getSaleById = async (req, res) => {
+  const { id } = req.params;
+
+  const sale = await saleService.getSaleById(id);
+
+  res.status(200).json(sale);
+}
+
 module.exports = {
   createSale,
+  getSales,
   getSaleById,
 };
