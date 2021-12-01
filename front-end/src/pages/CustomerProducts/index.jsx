@@ -1,17 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import NavBar from '../components/NavBar/NavBar';
-import CardProduto from '../components/CardProduto/CardProduto';
-import '../styles/ProdutosClientes.css';
-import ProductsContext from '../context/ProductsContext';
-// import ButtonCart from '../components/ButtonCart/ButtonCart';
-import ButtonPrimary from '../components/ButtonPrimary';
+import NavBar from '../../components/NavBar/NavBar';
+import CardProduto from '../../components/CardProduto';
+import './styles.css';
+import ProductsContext from '../../context/ProductsContext';
+import ButtonPrimary from '../../components/ButtonPrimary';
 
-function ProdutosClientes() {
+function CustomerProducts() {
   const { values: { totalCart } } = useContext(ProductsContext);
   const formatedValue = totalCart.toFixed(2).replace('.', ',');
   const [disabledBtn, setDisabledBtn] = useState(true);
   const redirect = useNavigate();
+
   const handleClick = () => {
     redirect('/customer/checkout');
   };
@@ -23,13 +23,14 @@ function ProdutosClientes() {
       setDisabledBtn(true);
     }
   }, [totalCart]);
+
   return (
     <>
       <NavBar />
       <main className="main-cards">
         <CardProduto checkout={ setDisabledBtn } />
       </main>
-      {/*  <ButtonCart /> */}
+
       <ButtonPrimary
         data-testid="customer_products__button-cart"
         disabled={ disabledBtn }
@@ -47,4 +48,4 @@ function ProdutosClientes() {
   );
 }
 
-export default ProdutosClientes;
+export default CustomerProducts;

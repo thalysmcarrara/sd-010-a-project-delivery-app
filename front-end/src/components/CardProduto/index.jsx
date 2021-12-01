@@ -3,14 +3,7 @@ import { arrayOf, shape } from 'prop-types';
 import ProductsContext from '../../context/ProductsContext';
 import PrecoProduto from './PrecoProduto';
 import ImagemProduto from './ImagemProduto';
-// import NomeProduto from './NomeProduto';
-// import AddItem from './AddItem';
-// import QuantidadeItens from './QuantidadeItens';
-// import RmItem from './RmItem';
 import '../../styles/CardProduct.css';
-// import ButtonPrimary from '../ButtonPrimary';
-// import ButtonSecondary from '../ButtonSecondary';
-// import Label from '../Label';
 import useProductManager from '../../hooks/useProductManager';
 import './styles.css';
 
@@ -18,7 +11,7 @@ function CardProduto() {
   const { values: { isFetching, productsResult, qntItens },
     actions: { setQntItens } } = useContext(ProductsContext);
   const data = productsResult;
-  // const [qntItens, setQntItens] = useState({});
+
   const [setProduct] = useProductManager();
 
   const handleChange = ({ target }, price) => {
@@ -37,7 +30,7 @@ function CardProduto() {
 
   const handleClickAdd = ({ target }) => {
     const oldQuantity = qntItens[target.id] || 0;
-    // console.log(oldQuantity);
+
     setQntItens((previous) => ({ ...previous, [target.id]: oldQuantity + 1 }));
     const dataProductAdd = {
       id: target.id,
@@ -48,7 +41,6 @@ function CardProduto() {
 
   const handleClickRm = ({ target }) => {
     const oldQuantity = qntItens[target.id] || 0;
-    console.log(oldQuantity);
     if (oldQuantity > 0) {
       setQntItens((previous) => ({ ...previous, [target.id]: oldQuantity - 1 }));
       const dataProductAdd = {
