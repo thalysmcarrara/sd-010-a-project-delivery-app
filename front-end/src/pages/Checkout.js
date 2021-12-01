@@ -14,6 +14,8 @@ function Checkout() {
   const [saleCreated, setSaleCreated] = useState(false);
   const [saleId, setSaleId] = useState();
 
+  const dataUser = JSON.parse(localStorage.getItem('user'));
+
   useEffect(() => {
     const getSellers = async () => {
       const { data } = await requests.getSellers();
@@ -22,10 +24,6 @@ function Checkout() {
     getSellers();
   }, []);
 
-  const dataUser = JSON.parse(localStorage.getItem('user'));
-
-  // console.log('dataUser:', dataUser);
-
   const createSale = async () => {
     const sale = {
       ...deliveryDetails,
@@ -33,8 +31,6 @@ function Checkout() {
       total_price: totalCart.replace(',', '.'),
       products: Object.values(cartStorage),
     };
-
-    console.log('createSale:', sale);
 
     const data = await requests.createSale(dataUser.token, sale);
     const CREATED_STATUS = 201;

@@ -43,6 +43,9 @@ const Login = () => {
     } else {
       validateButton.disabled = true;
     }
+
+    const dataUser = JSON.parse(localStorage.getItem('user'));
+    if (dataUser) setIsLoading(true);
   });
 
   const history = useHistory();
