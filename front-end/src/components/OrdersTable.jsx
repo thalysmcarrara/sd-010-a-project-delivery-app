@@ -1,16 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import ProductsContext from '../context/ProductsContext';
 
-export default function OrdersTable({ orderList }) {
+export default function OrdersTable() {
+  const { values: {
+    isFetching,
+    productsResult,
+    productsCart } } = useContext(ProductsContext);
+
   const path = useLocation().pathname;
   const [elements, setElements] = useState([]);
   useEffect(() => {
+    if (isFetching) return;
+    const productsFormatted = productsCart.map((produto) => {
+      const productsData = productsResult.find(({ id }) => produto.id === id);
+      return {
+        quantity: produto.quantity,
+        name: productsData.name,
+        price: productsData.price,
+      };
+    });
     const setState = () => {
-      setElements(orderList);
+      setElements(productsFormatted);
     };
     setState();
-  }, [orderList]);
+  }, [isFetching]);
   const removeElement = ({ target }) => {
     const filtered = elements.filter((product) => product.name !== target.value);
     setElements(filtered);
@@ -33,26 +48,28 @@ export default function OrdersTable({ orderList }) {
       <th>{product.price * product.quantity}</th>
       <th>
         { path.includes('checkout')
-          ? button()
+          ? button(product.name)
           : null }
       </th>
     </tr>
   ));
-  return (
+  return !isFetching ? (
     <table>
-      <tr>
-        <th>Item</th>
-        <th>Descrição</th>
-        <th>Qunatidade</th>
-        <th>Valor Unitario</th>
-        <th>Sub-Total</th>
-        { path.includes('checkout') ? <th>Remover Item</th> : null}
-      </tr>
-      { renderElements() }
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Descrição</th>
+          <th>Quantidade</th>
+          <th>Valor Unitario</th>
+          <th>Sub-Total</th>
+          { path.includes('checkout') ? <th>Remover Item</th> : null}
+        </tr>
+        { renderElements() }
+      </thead>
     </table>
-  );
+  ) : <span>Loading ...</span>;
 }
 
-OrdersTable.propTypes = {
+/* OrdersTable.propTypes = {
   orderList: PropTypes.arrayOf(PropTypes.object).isRequired,
-};
+}; */

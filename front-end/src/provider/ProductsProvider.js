@@ -6,7 +6,7 @@ import getAllProducts from '../services/getAllProducts';
 export default function ProductsProvider({ children }) {
   const [productsResult, setProductsResult] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
-  const [productsCart, setProductsCart] = useState([{ id: 0, quantity: 0 }]);
+  const [productsCart, setProductsCart] = useState([]);
 
   const value = {
     values: {
