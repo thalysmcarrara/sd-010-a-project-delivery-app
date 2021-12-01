@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { arrayOf, shape } from 'prop-types';
 import useProductManager from '../../hooks/useProductManager';
 import ProductsContext from '../../context/ProductsContext';
+import formatPrice from '../../utils/formatPrice';
 
 export default function Body() {
   const products = JSON.parse(localStorage.getItem('productsCart')) || [];
@@ -39,12 +40,12 @@ export default function Body() {
           <td
             data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
           >
-            { product.price }
+            { formatPrice(product.price) }
           </td>
           <td
             data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
           >
-            { product.total }
+            { formatPrice(product.total) }
           </td>
           <td
             data-testid={ `customer_checkout__element-order-table-remove-${index}` }
