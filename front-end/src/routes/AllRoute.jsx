@@ -3,11 +3,11 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Login from '../pages/login';
 import Cadastro from '../components/Cadastro';
-import CheckoutComprador from '../components/CheckoutComprador';
+import CustomerCheckout from '../pages/CustomerCheckout';
 import AdminManagerUsers from '../pages/AdminManagerUsers';
-import NotFound from '../components/NotFound';
+import NotFound from '../pages/NotFound';
 import SalesListPage from '../pages/SalesListPage';
-import ProdutosClientes from '../pages/ProdutosClientes';
+import CustomerProducts from '../pages/CustomerProducts';
 import OrderDetails from '../pages/OrderDetails';
 
 export default function AllRoute() {
@@ -17,9 +17,9 @@ export default function AllRoute() {
       <Route path="/" element={ <Navigate replace to="/login" /> } />
       <Route path="/register" element={ <Cadastro /> } />
       <Route path="/customer/orders" element={ <SalesListPage /> } />
-      <Route path="/customer/products" element={ <ProdutosClientes /> } />
+      <Route path="/customer/products" element={ <CustomerProducts /> } />
       <Route path="/customer/orders/:id" element={ <OrderDetails /> } />
-      <Route path="/customer/checkout" element={ <CheckoutComprador /> } />
+      <Route path="/customer/checkout" element={ <CustomerCheckout /> } />
       <Route path="/seller/orders" element={ <SalesListPage /> } />
       <Route path="/seller/orders/:id" element={ <OrderDetails /> } />
       <Route path="/admin/manage" element={ <AdminManagerUsers /> } />
