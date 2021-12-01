@@ -1,7 +1,21 @@
 import React from 'react';
 
 function DetailsSell() {
-  return (<h1>hello</h1>);
+  const logout = () => {
+    localStorage.removeItem('user');
+  };
+
+  return (
+    <div>
+      <a
+        href="/"
+        data-testid="customer_products__element-navbar-link-logout"
+        onClick={ () => logout() }
+      >
+        SAIR
+      </a>
+    </div>
+  );
 }
 
 export default DetailsSell;

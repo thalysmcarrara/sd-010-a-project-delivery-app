@@ -4,11 +4,7 @@ import '../styles/saleCard.css';
 
 function SaleCard({ sale }) {
   const { id, status, saleDate, deliveryAddress } = sale;
-
-  const totalPrice = sale.total_price.replace('.', ',');
-  // const deliveryAddress = sale.delivery_address;
-
-  // console.log(sale);
+  const totalPrice = sale.totalPrice.replace('.', ',');
 
   const allDate = saleDate.split('T');
   const thisDate = allDate[0].split('-');
@@ -19,11 +15,7 @@ function SaleCard({ sale }) {
       href={ `/seller/orders/${id}` }
       data-testid={ `seller_orders__element-order-date-${id}` }
     >
-      <button
-        type="button"
-        value={ id }
-        className="saleCard"
-      >
+      <div className="saleCard">
         <span
           data-testid={ `seller_orders__element-order-id-${id}` }
         >
@@ -56,7 +48,7 @@ function SaleCard({ sale }) {
         >
           { deliveryAddress }
         </p>
-      </button>
+      </div>
     </a>
   );
 }
@@ -66,7 +58,7 @@ SaleCard.propTypes = {
     id: PropTypes.number,
     status: PropTypes.string,
     saleDate: PropTypes.string,
-    total_price: PropTypes.string,
+    totalPrice: PropTypes.string,
     deliveryAddress: PropTypes.string,
   }).isRequired,
 };
