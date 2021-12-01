@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import NavBar from '../components/NavBar';
-import OrderCard from '../components/OrderCard';
+import SellerOrdCard from '../components/SellerOrdCard';
 import * as request from '../services/requests';
 
 function Orders() {
@@ -22,12 +22,13 @@ function Orders() {
       </nav>
 
       <div>
-        {sales.length && (
-          Object.values(sales).map((sale) => (
-            <OrderCard key={ sale.id } sale={ sale } />
-          )))}
+        {Object.values(sales).map((sale) => (
+          <SellerOrdCard
+            key={ sale.id }
+            sale={ sale }
+          />
+        ))}
       </div>
-
     </section>
   );
 }

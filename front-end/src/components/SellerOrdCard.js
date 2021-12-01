@@ -4,7 +4,6 @@ import '../styles/saleCard.css';
 
 function SaleCard({ sale }) {
   const { id, status, saleDate, deliveryAddress } = sale;
-
   const totalPrice = sale.totalPrice.replace('.', ',');
 
   const allDate = saleDate.split('T');
@@ -16,11 +15,7 @@ function SaleCard({ sale }) {
       href={ `/seller/orders/${id}` }
       data-testid={ `seller_orders__element-order-date-${id}` }
     >
-      <button
-        type="button"
-        value={ id }
-        className="saleCard"
-      >
+      <div className="saleCard">
         <span
           data-testid={ `seller_orders__element-order-id-${id}` }
         >
@@ -53,7 +48,7 @@ function SaleCard({ sale }) {
         >
           { deliveryAddress }
         </p>
-      </button>
+      </div>
     </a>
   );
 }

@@ -50,6 +50,9 @@ const Login = () => {
     } else {
       validateButton.disabled = true;
     }
+
+    const dataUser = JSON.parse(localStorage.getItem('user'));
+    if (dataUser) setIsLoading(true);
   });
 
   const history = useHistory();
@@ -57,7 +60,6 @@ const Login = () => {
   return (
     <main>
       <section>
-        {/* <img></img> */}
         <h1>Drink Delivery</h1>
       </section>
       <form>
@@ -66,7 +68,6 @@ const Login = () => {
           placeholder="Insira seu e-mail"
           data-testid="common_login__input-email"
           name="email"
-          // value={ email }
           onChange={ handleInputChange }
         />
         <br />

@@ -3,11 +3,11 @@ const camelCase = require('camelcase');
 const { Sale, SaleProduct, User, Product } = require('../database/models');
 
 const create = async (saleValue, id) => {
-  const saleDate = moment().format();
-  const sale = await Sale.create({ ...saleValue, userId: id });
+  const { products, ...rest } = saleValue;
+
+  const sale = await Sale.create({ ...rest, userId: id });
   if (!sale) return { status: 500, message: 'Internal Server Error' };
   
-  const { products } = saleValue;
   const saleId = sale.dataValues.id;
 
   const allProducts = products.map(async (product) => {    

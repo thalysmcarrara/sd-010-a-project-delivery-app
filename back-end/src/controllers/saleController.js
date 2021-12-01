@@ -6,12 +6,11 @@ const createSale = async (req, res) => {
     seller_id: sellerId,
     delivery_address: deliveryAddress,
     delivery_number: deliveryNumber,
-    user_id: userId,
     total_price: totalPrice,
     products,
   } = req.body;
   const saleValues = {
-    sellerId, deliveryAddress, deliveryNumber, userId, totalPrice, products,
+    sellerId, deliveryAddress, deliveryNumber, totalPrice, products,
   };
 
   const { status, message, saleId } = await saleService.create(saleValues, id);
@@ -41,7 +40,7 @@ const updateSale = async (req, res) => {
   const sale = await saleService.updateSale(id, data);
 
   res.status(200).json(sale);
-}
+};
 
 module.exports = {
   createSale,

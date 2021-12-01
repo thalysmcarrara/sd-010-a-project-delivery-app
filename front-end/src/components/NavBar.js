@@ -28,7 +28,7 @@ function NavBar() {
         </li>
         <li>
           <a
-            href="/"
+            href="/customer/products"
             data-testid="customer_products__element-navbar-user-full-name"
           >
             { dataUser.name }

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Login from './pages/Login';
 import Products from './pages/Products';
 import Register from './pages/Register';
-import Orders from './pages/Orders';
+import CustomerOrders from './pages/CustomerOrders';
 import CartProvider from './provider/Cart';
 import SellerOrders from './pages/SellerOrders';
 import Checkout from './pages/Checkout';
@@ -23,16 +23,16 @@ function App() {
         <Route path={ paths.routeLogin } exact component={ Login } />
         <Route path={ paths.routeRegister } exact component={ Register } />
         <Route path={ paths.routeDetailsSell } exact component={ DetailsSell } />
-        <Route path={ paths.routeOrders } exact component={ Orders } />
         <Route
           path={ paths.routeSellerOrdersDetails }
           exact
           component={ SellerOrderDetails }
         />
+        <Route path={ paths.routeCustomerOrders } exact component={ CustomerOrders } />
         <Route path={ paths.routeSellerOrders } exact component={ SellerOrders } />
         <CartProvider>
-          <Route path={ paths.routeCheckout } exact component={ Checkout } />
           <Route path={ paths.routeProducts } exact component={ Products } />
+          <Route path={ paths.routeCheckout } exact component={ Checkout } />
         </CartProvider>
       </Switch>
     </BrowserRouter>

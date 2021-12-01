@@ -5,7 +5,6 @@ import DeliveryDetailsTable from '../components/DeliveryDetailsTable';
 import NavBar from '../components/NavBar';
 import { CartContext } from '../context/cart';
 import * as requests from '../services/requests';
-// import postSell from '../services/requests';
 
 function Checkout() {
   const { cartStorage = {}, totalCart } = useContext(CartContext);
@@ -13,6 +12,8 @@ function Checkout() {
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [saleCreated, setSaleCreated] = useState(false);
   const [saleId, setSaleId] = useState();
+
+  const dataUser = JSON.parse(localStorage.getItem('user'));
 
   useEffect(() => {
     const getSellers = async () => {
@@ -22,19 +23,12 @@ function Checkout() {
     getSellers();
   }, []);
 
-  const dataUser = JSON.parse(localStorage.getItem('user'));
-
-  // console.log('dataUser:', dataUser);
-
   const createSale = async () => {
     const sale = {
       ...deliveryDetails,
-      user_id: dataUser.id,
       total_price: totalCart.replace(',', '.'),
       products: Object.values(cartStorage),
     };
-
-    console.log('createSale:', sale);
 
     const data = await requests.createSale(dataUser.token, sale);
     const CREATED_STATUS = 201;
