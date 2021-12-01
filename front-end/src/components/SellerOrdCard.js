@@ -4,7 +4,7 @@ import '../styles/saleCard.css';
 
 function SaleCard({ sale }) {
   const { id, status, saleDate, deliveryAddress } = sale;
-  const totalPrice = sale.total_price.replace('.', ',');
+  const totalPrice = sale.totalPrice.replace('.', ',');
 
   const allDate = saleDate.split('T');
   const thisDate = allDate[0].split('-');
@@ -58,7 +58,7 @@ SaleCard.propTypes = {
     id: PropTypes.number,
     status: PropTypes.string,
     saleDate: PropTypes.string,
-    total_price: PropTypes.string,
+    totalPrice: PropTypes.string,
     deliveryAddress: PropTypes.string,
   }).isRequired,
 };
