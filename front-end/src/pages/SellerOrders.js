@@ -22,9 +22,10 @@ function Orders() {
       </nav>
 
       <div>
-        {Object.values(sales).map((sale) => (
-          <OrderCard key={ sale.id } sale={ sale } />
-        ))}
+        {sales.length && (
+          Object.values(sales).map((sale) => (
+            <OrderCard key={ sale.id } sale={ sale } />
+          )))}
       </div>
 
     </section>

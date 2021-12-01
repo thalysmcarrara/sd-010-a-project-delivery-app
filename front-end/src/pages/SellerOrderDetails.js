@@ -13,21 +13,42 @@ const dataTestIds = {
   58: 'seller_order_details__button-dispatch-check',
 };
 
+const situations = ['Pendente', 'Preparando', 'Em Trânsito', 'Entregue'];
+
+const statusDisablePrepare = [situations[1], situations[2], situations[3]];
+const statusDisableOut = [situations[0], situations[2], situations[3]];
+const indexOfNotFound = -1;
+
 export default function SellerOrderDetails({ match }) {
   const [order, setOrder] = useState();
+  const [statusSale, setStatusSale] = useState('Pendente');
   const dataUser = JSON.parse(localStorage.getItem('user'));
+
+  const {
+    params: { id },
+  } = match;
 
   useEffect(() => {
     const getSale = async () => {
-      const {
-        params: { id },
-      } = match;
       const sale = await requests.getSaleById(dataUser.token, id);
-      console.log(sale);
       setOrder(sale);
+      setStatusSale(sale.status);
     };
     getSale();
   }, []);
+
+  useEffect(() => {
+    const updateSale = async () => {
+      if (statusSale !== 'Pendente') {
+        const sale = await requests.updateSale(dataUser.token, id, {
+          status: statusSale,
+        });
+        setOrder(sale);
+        setStatusSale(sale.status);
+      }
+    };
+    updateSale();
+  }, [statusSale]);
 
   return (
     <section>
@@ -42,12 +63,26 @@ export default function SellerOrderDetails({ match }) {
                 {order.id.toString().padStart(padsStartValue, '0')}
               </span>
             </p>
-            <p data-testid={ dataTestIds[55] }>{order.saleDate}</p>
-            <p data-testid={ dataTestIds[56] }>{order.status}</p>
-            <button data-testid={ dataTestIds[57] } type="button">
+            <p data-testid={ dataTestIds[56] }>{order.saleDate}</p>
+            <p data-testid={ dataTestIds[55] }>{order.status}</p>
+            <button
+              data-testid={ dataTestIds[57] }
+              type="button"
+              onClick={ () => setStatusSale('Preparando') }
+              disabled={
+                statusDisablePrepare.indexOf(statusSale) !== indexOfNotFound
+              }
+            >
               Preparar Pedido
             </button>
-            <button data-testid={ dataTestIds[58] } type="button">
+            <button
+              data-testid={ dataTestIds[58] }
+              onClick={ () => setStatusSale('Em Trânsito') }
+              disabled={
+                statusDisableOut.indexOf(statusSale) !== indexOfNotFound
+              }
+              type="button"
+            >
               Saiu para entrega
             </button>
           </div>

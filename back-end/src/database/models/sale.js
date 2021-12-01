@@ -2,19 +2,24 @@ module.exports = (sequelize, DataTypes) => {
   const Sale = sequelize.define(
     "Sale",
     {
-      user_id: DataTypes.INTEGER,
-      seller_id: DataTypes.INTEGER,
-      total_price: DataTypes.STRING,
-      delivery_address: DataTypes.STRING,
-      delivery_number: DataTypes.STRING,
-      sale_date: DataTypes.DATE,
-      status: DataTypes.STRING(50),
+      userId: DataTypes.INTEGER,
+      sellerId: DataTypes.INTEGER,
+      totalPrice: DataTypes.STRING,
+      deliveryAddress: DataTypes.STRING,
+      deliveryNumber: DataTypes.STRING,
+      saleDate: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW(),
+      },
+      status: {
+        type: DataTypes.STRING(50),
+        defaultValue: 'Pendente',
+      },
     },
     {
       timestamps: false,
       tableName: "sales",
       underscored: true,
-      createdAt: "saleDate",
     }
   );
 

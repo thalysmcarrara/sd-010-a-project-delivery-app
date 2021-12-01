@@ -1,4 +1,4 @@
-const methods = ['POST', 'GET'];
+const methods = ['POST', 'GET', 'PUT'];
 const contentType = ['application/json'];
 
 async function postUser(userData, rota) {
@@ -61,6 +61,17 @@ export async function getSaleById(token, id) {
   const response = await fetch(`http://localhost:3001/sales/${id}`, {
     method: methods[1],
     headers: { 'Content-Type': contentType[0], Authorization: token },
+  });
+
+  const sale = await response.json();
+  return sale;
+}
+
+export async function updateSale(token, id, data) {
+  const response = await fetch(`http://localhost:3001/sales/${id}`, {
+    method: methods[2],
+    headers: { 'Content-Type': contentType[0], Authorization: token },
+    body: JSON.stringify({ id, data }),
   });
 
   const sale = await response.json();
