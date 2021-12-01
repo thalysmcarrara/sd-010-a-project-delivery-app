@@ -5,7 +5,7 @@ const paths = {
   routeLogin: '/login',
   routeRegister: '/register',
   routeProducts: '/customer/products',
-  routeOrders: '/customer/orders',
+  routeCustomerOrders: '/customer/orders',
   routeSellerOrders: '/seller/orders',
   routeCheckout: '/customer/checkout',
   routeDetailsSell: '/customer/ordes/:id',
