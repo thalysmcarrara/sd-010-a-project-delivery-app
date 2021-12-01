@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const logout = () => {
-  localStorage.removeItem('user');
-};
-
-function NavBar({ dataUser }) {
+function NavBar() {
+  const logout = () => {
+    localStorage.removeItem('user');
+  };
+  const dataUser = JSON.parse(localStorage.getItem('user'));
   return (
     <nav>
       <ul>
