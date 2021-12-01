@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import '../styles/saleCard.css';
 
 function SaleCard({ sale }) {
-  const { id, status, saleDate, totalPrice } = sale;
-
-  console.log(sale);
+  const { id, status, saleDate } = sale;
+  const totalPrice = sale.totalPrice.replace('.', ',');
 
   const allDate = saleDate.split('T');
   const thisDate = allDate[0].split('-');
