@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import '../styles/saleCard.css';
 
 function SaleCard({ sale }) {
-  const { id, status, saleDate } = sale;
+  const { id, status, saleDate, totalPrice } = sale;
+
+  console.log(sale);
 
   const allDate = saleDate.split('T');
   const thisDate = allDate[0].split('-');
@@ -32,6 +34,15 @@ function SaleCard({ sale }) {
         >
           { newDate }
         </span>
+
+        <p>
+          R$
+          <span
+            data-testid={ `customer_orders__element-card-price-${id}` }
+          >
+            { totalPrice }
+          </span>
+        </p>
       </div>
     </a>
   );
@@ -42,6 +53,7 @@ SaleCard.propTypes = {
     id: PropTypes.number,
     status: PropTypes.string,
     saleDate: PropTypes.string,
+    totalPrice: PropTypes.string,
   }).isRequired,
 };
 
