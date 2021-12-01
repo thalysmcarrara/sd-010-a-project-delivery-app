@@ -8,6 +8,7 @@ import CartProvider from './provider/Cart';
 import SellerOrders from './pages/SellerOrders';
 import Checkout from './pages/Checkout';
 import DetailsSell from './pages/DetailsSell';
+import Admin from './pages/Admin';
 
 // rotas
 import paths from './routesPaths/paths';
@@ -24,6 +25,7 @@ function App() {
         <Route path={ paths.routeCustomerOrders } exact component={ CustomerOrders } />
         <Route path={ paths.routeSellerOrders } exact component={ SellerOrders } />
         <Route path={ paths.routeDetailsSell } exact component={ DetailsSell } />
+        <Route patch={ paths.routeAdmin } exact component={ Admin } />
         <CartProvider>
           <Route path={ paths.routeProducts } exact component={ Products } />
           <Route path={ paths.routeCheckout } exact component={ Checkout } />
