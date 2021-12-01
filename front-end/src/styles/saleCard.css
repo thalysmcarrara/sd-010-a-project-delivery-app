@@ -1,6 +1,8 @@
 .saleCard {
+  background-color: rgb(243, 219, 166);
   display: flexbox;
   height: 90px;
   margin: 30px;
+  text-align: center;
   width: 270px;
 }

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import '../styles/saleCard.css';
 
 function SaleCard({ sale }) {
-  const { id, status } = sale;
-  const saleDate = sale.sale_date;
+  const { id, status, saleDate } = sale;
+  const totalPrice = sale.totalPrice.replace('.', ',');
 
   const allDate = saleDate.split('T');
   const thisDate = allDate[0].split('-');
@@ -15,11 +15,7 @@ function SaleCard({ sale }) {
       href={ `/customer/orders/${id}` }
       data-testid={ `customer_products__element-order-date-${id}` }
     >
-      <button
-        type="button"
-        value={ id }
-        className="saleCard"
-      >
+      <div className="saleCard">
         <span
           data-testid={ `customer_orders__element-order-id-${id}` }
         >
@@ -37,7 +33,16 @@ function SaleCard({ sale }) {
         >
           { newDate }
         </span>
-      </button>
+
+        <p>
+          R$
+          <span
+            data-testid={ `customer_orders__element-card-price-${id}` }
+          >
+            { totalPrice }
+          </span>
+        </p>
+      </div>
     </a>
   );
 }
@@ -46,7 +51,8 @@ SaleCard.propTypes = {
   sale: PropTypes.shape({
     id: PropTypes.number,
     status: PropTypes.string,
-    sale_date: PropTypes.string,
+    saleDate: PropTypes.string,
+    totalPrice: PropTypes.string,
   }).isRequired,
 };
 

@@ -1,22 +1,25 @@
 const moment = require('moment');
 const { Sale, SaleProduct } = require('../database/models');
 
-const create = async (order, id) => {
-  const date = moment().format();
-  const sale = await Sale.create({ ...order, sale_date: date, user_id: id, status: 'Pendente' });
+const create = async (saleValue, id) => {
+  const saleDate = moment().format();
+  const sale = await Sale.create({ ...saleValue, saleDate, userId: id, status: 'Pendente' });
   if (!sale) return { status: 500, message: 'Internal Server Error' };
   
-  const { products } = order;
+  const { products } = saleValue;
   const saleId = sale.dataValues.id;
 
-  products.forEach(async (product) => {
+  const allProducts = products.map(async (product) => {    
     const createSaleProduct = await SaleProduct.create({
-      sale_id: saleId,
-      product_id: product.productId,
+      saleId,
+      productId: product.productId,
       quantity: product.quantity,
     });
     if (!createSaleProduct) return { status: 500, message: 'Sale not created' };
   });
+
+  await Promise.all(allProducts);
+
   return { status: 201, saleId };
 };
 
