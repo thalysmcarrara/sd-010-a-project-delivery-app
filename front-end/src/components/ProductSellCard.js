@@ -1,66 +1,124 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CartContext } from '../context/cart';
+import '../styles/productCard.css';
 
-function ProductSellCard({ product, index }) {
-  const { setCart } = useContext(CartContext);
+function ProductCard({ product }) {
+  const { setCart, cartStorage } = useContext(CartContext);
+  const [cartItem, setCartItem] = useState();
+  const [quantity, setQuantity] = useState(0);
 
-  const removeItem = () => {
-    const toRemove = Object.assign(product);
-    toRemove.quantity = 0;
-    setCart({ id: toRemove.productId, item: toRemove });
+  const { id, name, url_image: urlImage, price } = product;
+  const productPrice = product.price.replace('.', ',');
+
+  const formatPrice = (value) => parseFloat(value).toFixed(2);
+
+  const addProduct = () => {
+    setCartItem({
+      productId: id,
+      name,
+      quantity: cartItem ? cartItem.quantity + 1 : 1,
+      unitPrice: price,
+      subTotal: cartItem
+        ? formatPrice((cartItem.quantity + 1) * Number(price))
+        : price,
+    });
+
+    if (cartStorage && cartStorage[id]) {
+      setCartItem({
+        ...cartStorage[id],
+        quantity: cartStorage[id].quantity + 1,
+        subTotal: formatPrice((cartStorage[id].quantity + 1) * Number(price)),
+      });
+    }
+    setQuantity(quantity + 1);
   };
 
-  const { name, quantity, unitPrice, subTotal } = product;
+  const removeProduct = () => {
+    if (quantity > 0) {
+      setCartItem({
+        ...cartItem,
+        quantity: cartItem.quantity - 1,
+        subTotal: formatPrice(Number(cartItem.subTotal) - Number(price)),
+      });
+      setQuantity(quantity - 1);
+    }
+  };
+
+  useEffect(() => {
+    if (cartItem) {
+      setCart({ id, item: cartItem });
+    }
+  }, [cartItem, id, setCart]);
+
+  const insertManuallyQuantity = ({ target: { value } }) => {
+    setCartItem({
+      productId: id,
+      name,
+      quantity: Number(value),
+      unitPrice: price,
+      subTotal: formatPrice(Number(value) * Number(price)),
+    });
+
+    setQuantity(value);
+  };
+
+  const handleClickAdd = () => addProduct();
 
   return (
-    <tr>
-      <td
-        data-testid={ `customer_checkout__element-order-table-item-number-${index}` }
-      >
-        { index + 1}
-      </td>
-      <td
-        data-testid={ `customer_checkout__element-order-table-name-${index}` }
-      >
-        { name }
-      </td>
-      <td
-        data-testid={ `customer_checkout__element-order-table-quantity-${index}` }
-      >
-        { quantity }
-      </td>
-      <td
-        data-testid={ `customer_checkout__element-order-table-unit-price-${index}` }
-      >
-        { unitPrice.replace('.', ',') }
-      </td>
-      <td
-        data-testid={ `customer_checkout__element-order-table-sub-total-${index}` }
-      >
-        { subTotal.replace('.', ',') }
-      </td>
-      <td>
-        <button
-          data-testid={ `customer_checkout__element-order-table-remove-${index}` }
-          type="button"
-          onClick={ removeItem }
+    <div className="productCard">
+      <p>
+        R$
+        <span
+          data-testid={ `customer_products__element-card-price-${id}` }
         >
-          Remover Item
+          {productPrice}
+        </span>
+      </p>
+      <img
+        data-testid={ `customer_products__img-card-bg-image-${id}` }
+        src={ urlImage }
+        alt="Product"
+        className="imageCard"
+      />
+      <p data-testid={ `customer_products__element-card-title-${id}` }>
+        { name }
+      </p>
+      <div>
+        <button
+          data-testid={ `customer_products__button-card-rm-item-${id}` }
+          type="button"
+          onClick={ removeProduct }
+        >
+          -
         </button>
-      </td>
-    </tr>
+        <input
+          data-testid={ `customer_products__input-card-quantity-${id}` }
+          type="number"
+          value={ quantity }
+          placeholder="0"
+          onChange={ insertManuallyQuantity }
+        />
+        <button
+          data-testid={ `customer_products__button-card-add-item-${id}` }
+          type="button"
+          onClick={ handleClickAdd }
+        >
+          +
+        </button>
+      </div>
+    </div>
   );
 }
 
-ProductSellCard.propTypes = {
+ProductCard.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.number,
     name: PropTypes.string,
-    quantity: PropTypes.string,
-    unitPrice: PropTypes.string,
-    subTotal: PropTypes.string,
+    url_image: PropTypes.string,
+    price: PropTypes.string,
   }).isRequired,
-  index: PropTypes.shape({}),
+  cartStorage: PropTypes.shape({}),
 }.isRequired;
 
-export default ProductSellCard;
+export default ProductCard;

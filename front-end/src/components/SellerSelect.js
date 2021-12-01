@@ -1,24 +1,66 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../styles/saleCard.css';
 
-export default function SellerSelect({ sellers, handleChange }) {
+function SaleCard({ sale }) {
+  const { id, status, saleDate, deliveryAddress } = sale;
+  const totalPrice = sale.totalPrice.replace('.', ',');
+
+  const allDate = saleDate.split('T');
+  const thisDate = allDate[0].split('-');
+  const newDate = [thisDate[2], thisDate[1], thisDate[0]].join('/');
+
   return (
-    <select
-      name="seller_id"
-      data-testid="customer_checkout__select-seller"
-      onChange={ handleChange }
+    <a
+      href={ `/seller/orders/${id}` }
+      data-testid={ `seller_orders__element-order-date-${id}` }
     >
-      <option hidden>Selecione o vendedor</option>
-      {sellers.map((seller) => (
-        <option key={ seller.id } value={ seller.id }>
-          {seller.name}
-        </option>
-      ))}
-    </select>
+      <div className="saleCard">
+        <span
+          data-testid={ `seller_orders__element-order-id-${id}` }
+        >
+          { `Pedido ${id}` }
+        </span>
+
+        <p
+          data-testid={ `seller_orders__element-delivery-status-${id}` }
+        >
+          { status }
+        </p>
+
+        <span
+          data-testid={ `seller_orders__element-order-date-${id}` }
+        >
+          { newDate }
+        </span>
+
+        <p>
+          R$
+          <span
+            data-testid={ `seller_orders__element-card-price-${id}` }
+          >
+            {totalPrice}
+          </span>
+        </p>
+
+        <p
+          data-testid={ `seller_orders__element-card-address-${id}` }
+        >
+          { deliveryAddress }
+        </p>
+      </div>
+    </a>
   );
 }
 
-SellerSelect.propTypes = {
-  handleChange: PropTypes.func,
-  sellers: PropTypes.arrayOf(PropTypes.shape({})),
-}.isRequired;
+SaleCard.propTypes = {
+  sale: PropTypes.shape({
+    id: PropTypes.number,
+    status: PropTypes.string,
+    saleDate: PropTypes.string,
+    totalPrice: PropTypes.string,
+    deliveryAddress: PropTypes.string,
+  }).isRequired,
+};
+
+export default SaleCard;

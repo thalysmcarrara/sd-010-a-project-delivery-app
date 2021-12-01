@@ -25,10 +25,10 @@ function App() {
         <Route path={ paths.routeCustomerOrders } exact component={ CustomerOrders } />
         <Route path={ paths.routeSellerOrders } exact component={ SellerOrders } />
         <Route path={ paths.routeDetailsSell } exact component={ DetailsSell } />
-        <Route patch={ paths.routeAdmin } exact component={ Admin } />
         <CartProvider>
           <Route path={ paths.routeProducts } exact component={ Products } />
           <Route path={ paths.routeCheckout } exact component={ Checkout } />
+          <Route path={ paths.routeAdmin } exact component={ Admin } />
         </CartProvider>
       </Switch>
     </BrowserRouter>
