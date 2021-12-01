@@ -3,12 +3,12 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import Login from '../pages/login';
 import Cadastro from '../components/Cadastro';
-import CustomerCheckout from '../pages/CustomerCheckout';
 import AdminManagerUsers from '../pages/AdminManagerUsers';
 import NotFound from '../pages/NotFound';
 import SalesListPage from '../pages/SalesListPage';
 import CustomerProducts from '../pages/CustomerProducts';
 import OrderDetails from '../pages/OrderDetails';
+import CustomerCheckout from '../pages/CustomerCheckout';
 
 export default function AllRoute() {
   return (
