@@ -43,6 +43,7 @@ const Admin = () => (
     <button
       type="button"
       data-testid="admin_manage__button-register"
+      disabled
     >
       CADASTRAR
     </button>

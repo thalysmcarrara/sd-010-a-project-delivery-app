@@ -12,6 +12,8 @@ const Login = () => {
 
   const [loginErr, setLoginErr] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isSeller, setIsSeller] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const STATUS = 200;
 
   function handleInputChange(e) {
@@ -28,6 +30,8 @@ const Login = () => {
       const user = { token, ...data };
 
       localStorage.setItem('user', JSON.stringify(user));
+      if (data.role === 'seller') setIsSeller(true);
+      if (data.role === 'administrator') setIsAdmin(true);
       setIsLoading(true);
     }
   }
@@ -104,6 +108,14 @@ const Login = () => {
             <Redirect to="/customer/products" />
           )
         }
+        {
+          isSeller && (
+            <Redirect to="/seller/orders" />
+          )
+        }
+        { isAdmin && (
+          <Redirect to="/admin/manage" />
+        )}
       </form>
     </main>
   );
