@@ -2,7 +2,7 @@
   background-color: rgb(243, 219, 166);
   display: flexbox;
   height: 90px;
+  text-align: center;
   margin: 30px;
   width: 270px;
-  text-align: center;
 }
