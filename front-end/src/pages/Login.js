@@ -34,7 +34,6 @@ const Login = () => {
     if (status === STATUS) {
       const user = { token, ...data };
 
-      sessionStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('user', JSON.stringify(user));
       setUserType(user.role);
       setIsLoading(true);
@@ -53,9 +52,11 @@ const Login = () => {
       validateButton.disabled = true;
     }
 
+    const sessionUser = JSON.parse(sessionStorage.getItem('user'));
+    if (sessionUser) setIsLoading(true);
+
     const dataUser = JSON.parse(localStorage.getItem('user'));
     if (dataUser) {
-      setIsLoading(true);
       setUserType(dataUser.role);
     }
   });

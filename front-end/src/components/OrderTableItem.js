@@ -20,8 +20,7 @@ const dataTestIdsCustomer = (index) => ({
 export default function OrderTableItem({ product, index }) {
   const [customerTable, setCustomerTable] = useState(false);
   const [sellerTable, setSellerTable] = useState(false);
-
-  const dataUser = JSON.parse(localStorage.getItem('user'));
+  const [dataUser, setDataUser] = useState();
 
   const formatPrice = (price) => price.replace('.', ',');
   const subTotal = parseFloat(
@@ -29,8 +28,19 @@ export default function OrderTableItem({ product, index }) {
   ).toFixed(2);
 
   useEffect(() => {
-    if (dataUser.role === 'customer') setCustomerTable(true);
-    if (dataUser.role === 'seller') setSellerTable(true);
+    const sessionUser = JSON.parse(sessionStorage.getItem('user'));
+    const localUser = JSON.parse(localStorage.getItem('user'));
+
+    const user = sessionUser || localUser;
+
+    setDataUser(user);
+  }, []);
+
+  useEffect(() => {
+    if (dataUser) {
+      if (dataUser.role === 'customer') setCustomerTable(true);
+      if (dataUser.role === 'seller') setSellerTable(true);
+    }
   }, [dataUser]);
 
   return (

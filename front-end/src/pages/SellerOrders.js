@@ -5,11 +5,18 @@ import * as request from '../services/requests';
 
 function Orders() {
   const [sales, setSales] = useState([]);
-  const dataUser = JSON.parse(localStorage.getItem('user'));
+  const [dataUser, setDataUser] = useState();
 
   useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem('user'));
+    const localUser = JSON.parse(localStorage.getItem('user'));
+
+    const user = sessionUser || localUser;
+
+    setDataUser(user);
+
     const getSale = async () => {
-      const saleData = await request.getSales(dataUser);
+      const saleData = await request.getSales(user);
       setSales(saleData);
     };
     getSale();
@@ -17,9 +24,7 @@ function Orders() {
 
   return (
     <section>
-      <nav>
-        <NavBar dataUser={ dataUser } />
-      </nav>
+      {dataUser && <NavBar dataUser={ dataUser } />}
 
       <div>
         {Object.values(sales).map((sale) => (
