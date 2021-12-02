@@ -7,7 +7,7 @@ import CustomerOrders from './pages/CustomerOrders';
 import CartProvider from './provider/Cart';
 import SellerOrders from './pages/SellerOrders';
 import Checkout from './pages/Checkout';
-import DetailsSell from './pages/DetailsSell';
+import CustomerOrdDetails from './pages/CustomerOrderDetails';
 import Admin from './pages/Admin';
 
 // rotas
@@ -23,7 +23,7 @@ function App() {
         </Route>
         <Route path={ paths.routeLogin } exact component={ Login } />
         <Route path={ paths.routeRegister } exact component={ Register } />
-        <Route path={ paths.routeDetailsSell } exact component={ DetailsSell } />
+        <Route path={ paths.routeCustOrdDetail } exact component={ CustomerOrdDetails } />
         <Route
           path={ paths.routeSellerOrdersDetails }
           exact

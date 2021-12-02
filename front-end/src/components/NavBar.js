@@ -1,25 +1,33 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-function NavBar() {
+const ordersLinks = {
+  customer: '/customer/orders',
+  seller: '/seller/orders',
+};
+
+function NavBar({ dataUser }) {
   const logout = () => {
     localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
   };
-  const dataUser = JSON.parse(localStorage.getItem('user'));
 
   return (
     <nav>
       <ul>
+        {dataUser.role === 'customer' && (
+          <li>
+            <a
+              href="/customer/products"
+              data-testid="customer_products__element-navbar-link-products"
+            >
+              Produtos
+            </a>
+          </li>
+        )}
         <li>
           <a
-            href="/customer/products"
-            data-testid="customer_products__element-navbar-link-products"
-          >
-            Produtos
-          </a>
-        </li>
-        <li>
-          <a
-            href="/customer/orders"
+            href={ ordersLinks[dataUser.role] }
             data-testid="customer_products__element-navbar-link-orders"
           >
             Meus Pedidos
@@ -48,3 +56,9 @@ function NavBar() {
 }
 
 export default NavBar;
+
+NavBar.propTypes = {
+  dataUser: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+  }),
+}.isRequired;

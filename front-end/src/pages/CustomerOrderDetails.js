@@ -6,18 +6,12 @@ import OrderDetailsTable from '../components/OrderDetailsTable';
 
 const padsStartValue = 4;
 const dataTestIds = {
-  54: 'seller_order_details__element-order-details-label-order-id',
-  55: 'seller_order_details__element-order-details-label-delivery-status',
-  56: 'seller_order_details__element-order-details-label-order-date',
-  57: 'seller_order_details__button-preparing-check',
-  58: 'seller_order_details__button-dispatch-check',
+  37: 'customer_order_details__element-order-details-label-order-id',
+  38: 'customer_order_details__element-order-details-label-seller-name',
+  39: 'customer_order_details__element-order-details-label-order-date',
+  40: 'customer_order_details__element-order-details-label-delivery-status',
+  47: 'customer_order_details__button-delivery-check',
 };
-
-const situations = ['Pendente', 'Preparando', 'Em Trânsito', 'Entregue'];
-
-const statusDisablePrepare = [situations[1], situations[2], situations[3]];
-const statusDisableOut = [situations[0], situations[2], situations[3]];
-const indexOfNotFound = -1;
 
 export default function SellerOrderDetails({ match }) {
   const [order, setOrder] = useState();
@@ -57,49 +51,47 @@ export default function SellerOrderDetails({ match }) {
       }
     };
     updateSale();
+
+    return () => console.log('desmontou');
   }, [statusSale]);
 
   return (
     <section>
-      {dataUser && <NavBar dataUser={ dataUser } />}
+      {dataUser && <NavBar dataUser={ dataUser } /> }
 
       {order && (
         <div>
           <div>
             <p>
               {'PEDIDO '}
-              <span data-testid={ dataTestIds[54] }>
+              <span data-testid={ dataTestIds[37] }>
                 {order.id.toString().padStart(padsStartValue, '0')}
               </span>
             </p>
-            <p data-testid={ dataTestIds[56] }>{order.saleDate}</p>
-            <p data-testid={ dataTestIds[55] }>{order.status}</p>
+
+            <p>
+              {'P. Vend: '}
+              <span data-testid={ dataTestIds[38] }>
+                { order.seller.name }
+              </span>
+            </p>
+
+            <p data-testid={ dataTestIds[39] }>{order.saleDate}</p>
+            <p data-testid={ dataTestIds[40] }>{order.status}</p>
             <button
-              data-testid={ dataTestIds[57] }
+              data-testid={ dataTestIds[47] }
               type="button"
-              onClick={ () => setStatusSale('Preparando') }
-              disabled={
-                statusDisablePrepare.indexOf(statusSale) !== indexOfNotFound
-              }
+              disabled={ statusSale !== 'Em Trânsito' }
+              onClick={ () => setStatusSale('Entregue') }
             >
-              Preparar Pedido
-            </button>
-            <button
-              data-testid={ dataTestIds[58] }
-              onClick={ () => setStatusSale('Em Trânsito') }
-              disabled={
-                statusDisableOut.indexOf(statusSale) !== indexOfNotFound
-              }
-              type="button"
-            >
-              Saiu para entrega
+              MARCAR COMO ENTREGUE
             </button>
           </div>
           <OrderDetailsTable products={ order.products } />
           <p>
             {'R$ '}
             <span
-              data-testid="seller_order_details__element-order-total-price"
+              data-testid="customer_order_details__element-order-total-price"
             >
               {order.totalPrice.replace('.', ',')}
             </span>

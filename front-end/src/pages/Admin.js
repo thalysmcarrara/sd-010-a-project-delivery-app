@@ -1,51 +1,53 @@
 import React from 'react';
-import NavBar from '../components/NavBar';
 
-const Admin = () => (
-  <>
-    <NavBar />
-    <h1>Cadastrar novo Usuário</h1>
+const Admin = () => {
+  const a = 'a';
+  console.log(a);
+  return (
     <form>
-      <label htmlFor="nameInput">
+      <label htmlFor="name">
         Nome
         <input
-          data-testid="admin-manage__input-name"
-          name="nameInput"
+          data-testid="admin_manage__input-name"
+          name="name"
+          // onChange={ handleInputChange }
         />
       </label>
-      <label htmlFor="emailInput">
+      <label htmlFor="email">
         Email
         <input
+          id="input"
           data-testid="admin_manage__input-email"
-          name="emailInput"
+          name="email"
+          // onChange={ handleInputChange }
         />
       </label>
-      <label htmlFor="passwordInput">
+      <label htmlFor="password">
         Senha
         <input
+          id="input"
           data-testid="admin_manage__input-password"
-          name="passwordInput"
+          name="password"
+          // onChange={ handleInputChange }
         />
       </label>
-      <label htmlFor="role">
-        P. Vendedora Responsável
+      <label htmlFor="password">
+        Tipo
         <select
-          name="role"
           data-testid="admin_manage__select-role"
         >
-          <option value="seller">Vendedor</option>
-          <option value="customer">Cliente</option>
+          <option>Vendedor</option>
         </select>
       </label>
+      <button
+        type="button"
+        data-testid="admin_manage__button-register"
+        // onClick={ createUser }
+      >
+        Cadastrar
+      </button>
     </form>
-    <button
-      type="button"
-      data-testid="admin_manage__button-register"
-      disabled
-    >
-      CADASTRAR
-    </button>
-  </>
-);
+  );
+};
 
 export default Admin;
