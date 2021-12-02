@@ -33,6 +33,7 @@ const Login = () => {
     if (status === STATUS) {
       const user = { token, ...data };
 
+      sessionStorage.setItem('user', JSON.stringify(user));
       localStorage.setItem('user', JSON.stringify(user));
       setUserType(user.role);
       setIsLoading(true);
@@ -52,7 +53,10 @@ const Login = () => {
     }
 
     const dataUser = JSON.parse(localStorage.getItem('user'));
-    if (dataUser) setIsLoading(true);
+    if (dataUser) {
+      setIsLoading(true);
+      setUserType(dataUser.role);
+    }
   });
 
   const history = useHistory();

@@ -70,7 +70,7 @@ export default function SellerOrderDetails({ match }) {
             <button
               data-testid={ dataTestIds[47] }
               type="button"
-              disabled
+              disabled={ statusSale !== 'Em Trânsito' }
               onClick={ () => setStatusSale('Entregue') }
             >
               MARCAR COMO ENTREGUE
