@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import genHashMd5 from 'md5';
+// import genHashMd5 from 'md5';
 import { useNavigate } from 'react-router-dom';
 import registerValidation from '../validations/registerValidation';
 import api from '../services/api';
