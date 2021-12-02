@@ -9,7 +9,7 @@ const paths = {
   routeSellerOrders: '/seller/orders',
   routeSellerOrdersDetails: '/seller/orders/:id',
   routeCheckout: '/customer/checkout',
-  routeDetailsSell: '/customer/orders/:id',
+  routeCustOrdDetail: '/customer/orders/:id',
 };
 
 export default paths;
