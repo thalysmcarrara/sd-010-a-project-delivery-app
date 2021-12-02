@@ -10,6 +10,7 @@ const paths = {
   routeSellerOrdersDetails: '/seller/orders/:id',
   routeCheckout: '/customer/checkout',
   routeCustOrdDetail: '/customer/orders/:id',
+  routeAdmin: '/admin/manage',
 };
 
 export default paths;

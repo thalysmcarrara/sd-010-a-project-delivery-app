@@ -7,6 +7,7 @@ import postUser from '../services/requests';
 const usersRedirectPaths = {
   customer: 'customer/products',
   seller: 'seller/orders',
+  administrator: 'admin/manage',
 };
 
 const Login = () => {
