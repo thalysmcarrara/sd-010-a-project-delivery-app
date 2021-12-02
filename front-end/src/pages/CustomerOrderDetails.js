@@ -16,15 +16,24 @@ const dataTestIds = {
 export default function SellerOrderDetails({ match }) {
   const [order, setOrder] = useState();
   const [statusSale, setStatusSale] = useState('Pendente');
+  const [dataUser, setDataUser] = useState();
 
-  const dataUser = JSON.parse(localStorage.getItem('user'));
   const {
     params: { id },
   } = match;
 
   useEffect(() => {
+    const sessionUser = JSON.parse(sessionStorage.getItem('user'));
+    const localUser = JSON.parse(localStorage.getItem('user'));
+
+    const user = sessionUser || localUser;
+
+    setDataUser(user);
+
+    sessionStorage.setItem('user', JSON.stringify(user));
+
     const getSale = async () => {
-      const sale = await requests.getSaleById(dataUser.token, id);
+      const sale = await requests.getSaleById(user.token, id);
       setOrder(sale);
       setStatusSale(sale.status);
     };
@@ -42,11 +51,13 @@ export default function SellerOrderDetails({ match }) {
       }
     };
     updateSale();
+
+    return () => console.log('desmontou');
   }, [statusSale]);
 
   return (
     <section>
-      <NavBar dataUser={ dataUser } />
+      {dataUser && <NavBar dataUser={ dataUser } /> }
 
       {order && (
         <div>
