@@ -2,9 +2,9 @@ import api from './api';
 
 const postSale = async (saleData) => {
   const { token } = JSON.parse(localStorage.getItem('user'));
-  // userId pegar no token??
+  console.log('tokr:', token);
   try {
-    const res = await api.post('/sales', saleData, { headers: { authorization: token } });
+    const res = await api.post('/sales', saleData, { headers: { Authorization: token } });
     return res.data;
   } catch (error) {
     return error.response;

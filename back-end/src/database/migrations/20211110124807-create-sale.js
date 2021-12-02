@@ -17,6 +17,7 @@ module.exports = {
           model: 'users',
           key: 'id',
         },
+        field: 'user_id'
       },
       seller_id: {
         type: Sequelize.INTEGER,

@@ -1,13 +1,18 @@
-const { insert, takeToken } = require('../../services');
+const { insert, takeToken } = require('../../services'); 
+const moment = require('moment');
 
 const createSale = async (req, res) => {
-  const { authentication } = req.headers;
+  console.log('controller');
+  const date = moment(Date()).format('DD-MM-YYYY');
+
+  // const { authentication } = req.headers;
   const dataSale = req.body;
-  const { id } = takeToken(authentication);
-  if (id) return res.status();
-  const sale = await insert('sales', dataSale);
+  console.log(dataSale);
+  // const { id } = takeToken(authentication);
+  // if (!id) return res.status(400).json('Bad request');
+  const sale = await insert('sales', { ...dataSale, status: 'Pendente', saleDate: date });
   
-  res.status(201).json(sale);
+  return res.status(201).json(sale);
 };
 
 module.exports = createSale;

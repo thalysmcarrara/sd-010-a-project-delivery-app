@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
 
   if (md5Password === user.password) {
     const token = passwordToken(user.id);
-    return res.status(200).json({ token, name: user.name, email: user.email, role: user.role });
+    return res.status(200).json({ token, name: user.name, email: user.email, role: user.role, userId: user.id });
   }
 
   return res.status(400).json({ message: 'Invalid fields' });
