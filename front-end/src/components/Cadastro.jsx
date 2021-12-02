@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import genHashMd5 from 'md5';
+// import genHashMd5 from 'md5';
 import { useNavigate } from 'react-router-dom';
 import registerValidation from '../validations/registerValidation';
 import api from '../services/api';
@@ -38,8 +38,8 @@ export default function Cadastro() {
   };
 
   const handleButtonClick = async () => {
-    const passwordHash = genHashMd5(passwordInput);
-    await fetchPostData({ name: nameInput, email: emailInput, password: passwordHash });
+    // const passwordHash = genHashMd5(passwordInput);
+    await fetchPostData({ name: nameInput, email: emailInput, password: passwordInput });
   };
 
   return (
