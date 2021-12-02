@@ -13,14 +13,9 @@ const dataTestIds = {
   47: 'customer_order_details__button-delivery-check',
 };
 
-const situations = ['Pendente', 'Preparando', 'Em Trânsito', 'Entregue'];
-const statusDisablePrepare = [situations[1], situations[2], situations[3]];
-const indexOfNotFound = -1;
-
 export default function SellerOrderDetails({ match }) {
   const [order, setOrder] = useState();
   const [statusSale, setStatusSale] = useState('Pendente');
-  // const [sellers, setSellers] = useState([]);
 
   const dataUser = JSON.parse(localStorage.getItem('user'));
   const {
@@ -35,14 +30,6 @@ export default function SellerOrderDetails({ match }) {
     };
     getSale();
   }, []);
-
-  // useEffect(() => {
-  //   const getSellers = async () => {
-  //     const { data } = await requests.getSellers();
-  //     setSellers(data);
-  //   };
-  //   getSellers();
-  // }, []);
 
   useEffect(() => {
     const updateSale = async () => {
@@ -74,7 +61,7 @@ export default function SellerOrderDetails({ match }) {
             <p>
               {'P. Vend: '}
               <span data-testid={ dataTestIds[38] }>
-                { dataUser.name }
+                { order.seller.name }
               </span>
             </p>
 
@@ -83,9 +70,7 @@ export default function SellerOrderDetails({ match }) {
             <button
               data-testid={ dataTestIds[47] }
               type="button"
-              disabled={
-                statusDisablePrepare.indexOf(statusSale) !== indexOfNotFound
-              }
+              disabled
               onClick={ () => setStatusSale('Entregue') }
             >
               MARCAR COMO ENTREGUE
