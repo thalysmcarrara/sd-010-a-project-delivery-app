@@ -7,7 +7,7 @@ import { CartContext } from '../context/cart';
 import * as requests from '../services/requests';
 
 function Checkout() {
-  const { cartStorage = {}, totalCart } = useContext(CartContext);
+  const { cartStorage = {}, totalCart, setSaleDetail } = useContext(CartContext);
   const [sellers, setSellers] = useState([]);
   const [deliveryDetails, setDeliveryDetails] = useState({});
   const [saleCreated, setSaleCreated] = useState(false);
@@ -37,6 +37,16 @@ function Checkout() {
       setSaleCreated(true);
       localStorage.removeItem('carrinho');
     }
+    // montando um objeto com todos os dados da vendo para mandar para o estado global
+    // o problema está quando eu mando outro objeto sobrescreve o anterior
+    setSaleDetail([
+      ...saleDetail,
+      {
+        numPedido: data.saleId,
+        vendedor: 'antonio',
+        produtos: sale.products,
+      },
+    ]);
   };
 
   const handleChange = ({ target: { name, value } }) => {

@@ -6,6 +6,7 @@ const CartProvider = ({ children }) => {
   const [cart, setCart] = useState();
   const [cartStorage, setCartStorage] = useState();
   const [totalCart, setTotalCart] = useState('0.00');
+  const [saleDetail, setSaleDetail] = useState([]);
 
   const updateStorage = (id, item) => {
     let storage = JSON.parse(localStorage.getItem('carrinho'));
@@ -48,7 +49,8 @@ const CartProvider = ({ children }) => {
     }
   }, [cartStorage]);
 
-  const context = { cart, setCart, cartStorage, setCartStorage, totalCart };
+  const context = {
+    cart, setCart, cartStorage, setCartStorage, totalCart, saleDetail, setSaleDetail };
   return (
     <CartContext.Provider value={ context }>{children}</CartContext.Provider>
   );
