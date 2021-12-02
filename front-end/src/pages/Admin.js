@@ -1,11 +1,9 @@
 import React from 'react';
 import NavBar from '../components/NavBar';
 
-const dataUser = JSON.parse(localStorage.getItem('user'));
-
 const Admin = () => (
   <>
-    <NavBar dataUser={ dataUser } />
+    <NavBar />
     <h1>Cadastrar novo Usuário</h1>
     <form>
       <label htmlFor="nameInput">
