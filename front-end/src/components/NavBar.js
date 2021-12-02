@@ -1,11 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 const logout = () => {
   localStorage.removeItem('user');
 };
 
-function NavBar({ dataUser }) {
+function NavBar() {
+  const dataUser = JSON.parse(localStorage.getItem('user'));
+
   return (
     <nav>
       <ul>
@@ -46,11 +47,5 @@ function NavBar({ dataUser }) {
     </nav>
   );
 }
-
-NavBar.propTypes = {
-  dataUser: PropTypes.shape({
-    name: PropTypes.string,
-  }).isRequired,
-};
 
 export default NavBar;

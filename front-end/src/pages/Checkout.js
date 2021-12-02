@@ -5,7 +5,6 @@ import DeliveryDetailsTable from '../components/DeliveryDetailsTable';
 import NavBar from '../components/NavBar';
 import { CartContext } from '../context/cart';
 import * as requests from '../services/requests';
-// import postSell from '../services/requests';
 
 function Checkout() {
   const { cartStorage = {}, totalCart } = useContext(CartContext);
@@ -27,7 +26,6 @@ function Checkout() {
   const createSale = async () => {
     const sale = {
       ...deliveryDetails,
-      user_id: dataUser.id,
       total_price: totalCart.replace(',', '.'),
       products: Object.values(cartStorage),
     };

@@ -6,12 +6,11 @@ const createSale = async (req, res) => {
     seller_id: sellerId,
     delivery_address: deliveryAddress,
     delivery_number: deliveryNumber,
-    user_id: userId,
     total_price: totalPrice,
     products,
   } = req.body;
   const saleValues = {
-    sellerId, deliveryAddress, deliveryNumber, userId, totalPrice, products,
+    sellerId, deliveryAddress, deliveryNumber, totalPrice, products,
   };
 
   const { status, message, saleId } = await saleService.create(saleValues, id);
@@ -20,15 +19,32 @@ const createSale = async (req, res) => {
   return res.status(201).json({ saleId });
 };
 
-const getSaleById = async (req, res) => {
+const getSales = async (req, res) => {
   const { id, role } = req.user;
   
-  const { status, message, sales } = await saleService.getSale(id, role);
+  const { status, message, sales } = await saleService.getSales(id, role);
   if (!sales) return res.status(status).json({ message });
   return res.status(status).json(sales);
 };
 
+const getSaleById = async (req, res) => {
+  const { id } = req.params;
+
+  const sale = await saleService.getSaleById(id);
+
+  res.status(200).json(sale);
+};
+
+const updateSale = async (req, res) => {
+  const { id, data } = req.body;
+  const sale = await saleService.updateSale(id, data);
+
+  res.status(200).json(sale);
+};
+
 module.exports = {
   createSale,
+  getSales,
   getSaleById,
+  updateSale,
 };
