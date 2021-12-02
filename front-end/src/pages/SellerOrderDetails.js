@@ -24,6 +24,8 @@ export default function SellerOrderDetails({ match }) {
   const [statusSale, setStatusSale] = useState('Pendente');
   const dataUser = JSON.parse(localStorage.getItem('user'));
 
+  console.log(order);
+
   const {
     params: { id },
   } = match;
