@@ -38,8 +38,8 @@ export default function Cadastro() {
   };
 
   const handleButtonClick = async () => {
-    const passwordHash = genHashMd5(passwordInput);
-    await fetchPostData({ name: nameInput, email: emailInput, password: passwordHash });
+    // const passwordHash = genHashMd5(passwordInput);
+    await fetchPostData({ name: nameInput, email: emailInput, password: passwordInput });
   };
 
   return (
