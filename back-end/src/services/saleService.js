@@ -39,8 +39,7 @@ const getSales = async (id, role) => {
 };
 
 const getSaleById = async (id) => {
-  const response = await Sale.findOne({
-    where: { id },
+  const response = await Sale.findOne({ where: { id },
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } },
       { model: User, as: 'seller', attributes: { exclude: ['password'] } },      
