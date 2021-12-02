@@ -4,7 +4,7 @@ const createSale = async (req, res) => {
   const { authentication } = req.headers;
   const dataSale = req.body;
   const { id } = takeToken(authentication);
-  if(id) return res.status()
+  if (id) return res.status();
   const sale = await insert('sales', dataSale);
   
   res.status(201).json(sale);
