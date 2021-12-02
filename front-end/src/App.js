@@ -8,6 +8,7 @@ import CartProvider from './provider/Cart';
 import SellerOrders from './pages/SellerOrders';
 import Checkout from './pages/Checkout';
 import CustomerOrdDetails from './pages/CustomerOrderDetails';
+import Admin from './pages/Admin';
 
 // rotas
 import paths from './routesPaths/paths';
@@ -33,6 +34,7 @@ function App() {
         <CartProvider>
           <Route path={ paths.routeProducts } exact component={ Products } />
           <Route path={ paths.routeCheckout } exact component={ Checkout } />
+          <Route path={ paths.routeAdmin } exact component={ Admin } />
         </CartProvider>
       </Switch>
     </BrowserRouter>
