@@ -9,10 +9,6 @@ import Select from '../../../components/Select';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import './styles.css';
 
-const fetchPostData = (userData) => api.post('/user/admin', userData)
-  .then((response) => response.data)
-  .catch((error) => error.response.data);
-
 const FormRegisterUser = () => {
   const [messageErrorBackend, setMessageErrorBackend] = useState(false);
   const [formValidState, setFormValidState] = useState(false);
@@ -21,10 +17,20 @@ const FormRegisterUser = () => {
   );
   const { setUser } = useManagerUsersContext();
 
+  const { token } = JSON.parse(localStorage.getItem('user')) || '';
+
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: token,
+  };
+
   const submitApiData = useCallback(() => {
+    const fetchPostData = (userData) => api.post('/user/admin', userData, { headers })
+      .then((response) => response.data)
+      .catch((error) => error.response.data);
     const { name, email, password, role } = formState;
     return fetchPostData({ name, email, password, role });
-  }, [formState]);
+  }, [formState, headers]);
 
   const { execute, status, value, error } = useAsync(submitApiData, false);
 
