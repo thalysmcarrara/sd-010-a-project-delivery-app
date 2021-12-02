@@ -1,4 +1,5 @@
 const createUser = require('./createUser');
+const createUserAdmin = require('./createUserAdmin');
 const removeUser = require('./removeUser');
 const updateUser = require('./updateUser');
 const findAllUsers = require('./findAllUsers');
@@ -9,6 +10,7 @@ const login = require('./login');
 
 module.exports = {
   createUser,
+  createUserAdmin,
   removeUser,
   updateUser,
   findAllUsers,

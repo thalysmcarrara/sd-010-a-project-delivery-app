@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
   const md5Password = genHashMd5(password);
 
   if (md5Password === user.password) {
-    const token = passwordToken(user.id);
+    const token = passwordToken({ id: user.id, role: user.role });
     return res.status(200).json({ token, name: user.name, email: user.email, role: user.role });
   }
 

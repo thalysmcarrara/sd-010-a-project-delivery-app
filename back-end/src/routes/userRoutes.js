@@ -6,6 +6,7 @@ const routes = express.Router();
 
 routes
   .post('/', rescue(userController.createUser))
+  .post('/admin', rescue(userController.createUserAdmin))
   .post('/email', rescue(userController.findByEmailUser))
   .post('/login', rescue(userController.login))
   .get('/sales', rescue(userController.getSalesByUser))
