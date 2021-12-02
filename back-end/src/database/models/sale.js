@@ -7,14 +7,19 @@ module.exports = (sequelize, DataTypes) => {
       totalPrice: DataTypes.STRING,
       deliveryAddress: DataTypes.STRING,
       deliveryNumber: DataTypes.STRING,
-      saleDate: DataTypes.DATE,
-      status: DataTypes.STRING(50),
+      saleDate: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW(),
+      },
+      status: {
+        type: DataTypes.STRING(50),
+        defaultValue: 'Pendente',
+      },
     },
     {
       timestamps: false,
       tableName: "sales",
       underscored: true,
-      createdAt: "saleDate",
     }
   );
 
@@ -22,10 +27,6 @@ module.exports = (sequelize, DataTypes) => {
     Sale.belongsTo(models.User, {
       foreignKey: "user_id",
       as: "user",
-    });
-    Sale.belongsTo(models.User, {
-      foreignKey: "seller_id",
-      as: "seller",
     });
   };
 

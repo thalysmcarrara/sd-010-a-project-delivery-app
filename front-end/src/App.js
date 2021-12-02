@@ -12,6 +12,7 @@ import Admin from './pages/Admin';
 
 // rotas
 import paths from './routesPaths/paths';
+import SellerOrderDetails from './pages/SellerOrderDetails';
 
 function App() {
   return (
@@ -22,9 +23,14 @@ function App() {
         </Route>
         <Route path={ paths.routeLogin } exact component={ Login } />
         <Route path={ paths.routeRegister } exact component={ Register } />
+        <Route path={ paths.routeDetailsSell } exact component={ DetailsSell } />
+        <Route
+          path={ paths.routeSellerOrdersDetails }
+          exact
+          component={ SellerOrderDetails }
+        />
         <Route path={ paths.routeCustomerOrders } exact component={ CustomerOrders } />
         <Route path={ paths.routeSellerOrders } exact component={ SellerOrders } />
-        <Route path={ paths.routeDetailsSell } exact component={ DetailsSell } />
         <CartProvider>
           <Route path={ paths.routeProducts } exact component={ Products } />
           <Route path={ paths.routeCheckout } exact component={ Checkout } />

@@ -1,20 +1,11 @@
 import React from 'react';
+import NavBar from '../components/NavBar';
 
 function DetailsSell() {
-  const logout = () => {
-    localStorage.removeItem('user');
-  };
-
   return (
-    <div>
-      <a
-        href="/"
-        data-testid="customer_products__element-navbar-link-logout"
-        onClick={ () => logout() }
-      >
-        SAIR
-      </a>
-    </div>
+    <section>
+      <NavBar />
+    </section>
   );
 }
 

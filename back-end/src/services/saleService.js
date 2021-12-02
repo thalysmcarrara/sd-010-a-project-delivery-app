@@ -1,12 +1,13 @@
 const moment = require('moment');
-const { Sale, SaleProduct } = require('../database/models');
+const camelCase = require('camelcase');
+const { Sale, SaleProduct, User, Product } = require('../database/models');
 
 const create = async (saleValue, id) => {
-  const saleDate = moment().format();
-  const sale = await Sale.create({ ...saleValue, saleDate, userId: id, status: 'Pendente' });
+  const { products, ...rest } = saleValue;
+
+  const sale = await Sale.create({ ...rest, userId: id });
   if (!sale) return { status: 500, message: 'Internal Server Error' };
   
-  const { products } = saleValue;
   const saleId = sale.dataValues.id;
 
   const allProducts = products.map(async (product) => {    
@@ -23,7 +24,7 @@ const create = async (saleValue, id) => {
   return { status: 201, saleId };
 };
 
-const getSale = async (id, role) => {
+const getSales = async (id, role) => {
   let sales;
 
   if (role === 'seller') {
@@ -37,7 +38,37 @@ const getSale = async (id, role) => {
   return { status: 200, sales };
 };
 
+const getSaleById = async (id) => {
+  const response = await Sale.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      {
+        model: Product,
+        as: 'products',
+        through: { attributes: ['quantity'] },
+      },
+    ],
+  });
+  const sale = response.toJSON();
+  const object = {};
+  Object.keys(sale).forEach((key) => {
+    object[camelCase(key)] = sale[key];
+  });
+  object.saleDate = moment(object.saleDate).format('DD/MM/YYYY');
+  return object;
+};
+
+const updateSale = async (id, data) => {
+  await Sale.update(data, { where: { id } });
+
+  const updated = await getSaleById(id);
+  return updated;
+};
+
 module.exports = {
   create,
-  getSale,
+  getSales,
+  getSaleById,
+  updateSale,
 };

@@ -57,5 +57,5 @@ const CartProvider = ({ children }) => {
 export default CartProvider;
 
 CartProvider.propTypes = {
-  children: PropTypes.shape({}).isRequired,
+  children: PropTypes.node.isRequired,
 };
