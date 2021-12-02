@@ -113,9 +113,11 @@ const Login = () => {
             <Redirect to="/seller/orders" />
           )
         }
-        { isAdmin && (
-          <Redirect to="/admin/manage" />
-        )}
+        {
+          isAdmin && (
+            <Redirect to="/admin/manage" />
+          )
+        }
       </form>
     </main>
   );
