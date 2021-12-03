@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import genHashMd5 from 'md5';
 import useAsync from '../../../hooks/useAsync';
 import validateFormRegister from '../../../utils/validateFormRegister';
 import useManagerUsersContext from '../../../hooks/useManagerUsersContext';
@@ -10,23 +9,28 @@ import Select from '../../../components/Select';
 import ButtonPrimary from '../../../components/ButtonPrimary';
 import './styles.css';
 
-const fetchPostData = (userData) => api.post('/user', userData)
-  .then((response) => response.data)
-  .catch((error) => error.response.data);
-
 const FormRegisterUser = () => {
   const [messageErrorBackend, setMessageErrorBackend] = useState(false);
   const [formValidState, setFormValidState] = useState(false);
   const [formState, setFormState] = useState(
-    { name: '', email: '', password: '', role: 'client' },
+    { name: '', email: '', password: '', role: 'customer' },
   );
   const { setUser } = useManagerUsersContext();
 
+  const { token } = JSON.parse(localStorage.getItem('user')) || '';
+
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: token,
+  };
+
   const submitApiData = useCallback(() => {
+    const fetchPostData = (userData) => api.post('/user/admin', userData, { headers })
+      .then((response) => response.data)
+      .catch((error) => error.response.data);
     const { name, email, password, role } = formState;
-    const passwordHash = genHashMd5(password);
-    return fetchPostData({ name, email, password: passwordHash, role });
-  }, [formState]);
+    return fetchPostData({ name, email, password, role });
+  }, [formState, headers]);
 
   const { execute, status, value, error } = useAsync(submitApiData, false);
 
@@ -118,8 +122,8 @@ const FormRegisterUser = () => {
           value={ formState.role }
           data-testid="admin_manage__select-role"
           options={ [
-            { name: 'Vendedor', value: 'salesman' },
-            { name: 'Cliente', value: 'client' },
+            { name: 'Vendedor', value: 'seller' },
+            { name: 'Cliente', value: 'customer' },
             { name: 'Administrator', value: 'administrator' },
           ] }
         />
@@ -132,7 +136,10 @@ const FormRegisterUser = () => {
         />
       </form>
 
-      { messageErrorBackend && <ErrorBackend messageError={ messageErrorBackend } />}
+      { messageErrorBackend && <ErrorBackend
+        messageError={ messageErrorBackend }
+        datatestid="admin_manage__element-invalid-register"
+      />}
     </div>
   );
 };
