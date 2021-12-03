@@ -22,7 +22,7 @@ export default function DetailsSocket() {
       console.log('SALE', response);
       setSale(response);
     });
-  }, []);
+  }, [id]);
   const onClick = ({ target }) => {
     const socket = io('http://localhost:3000');
     const statusValue = { preparo: 'Preparando',
