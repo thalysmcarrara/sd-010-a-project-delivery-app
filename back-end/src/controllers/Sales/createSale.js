@@ -1,5 +1,6 @@
-const { insert, takeToken } = require('../../services'); 
 const moment = require('moment');
+const { insert } = require('../../services');
+// const { insert, takeToken } = require('../../services');
 
 const createSale = async (req, res) => {
   console.log('controller');
