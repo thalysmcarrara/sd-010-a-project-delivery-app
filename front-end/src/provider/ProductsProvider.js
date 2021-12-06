@@ -7,20 +7,17 @@ export default function ProductsProvider({ children }) {
   const [productsResult, setProductsResult] = useState([]);
   const [isFetching, setIsFetching] = useState(true);
   const [totalCart, setTotalCart] = useState(0);
-  // const [productsCart, setProductsCart] = useState([]);
   const [qntItens, setQntItens] = useState({});
 
   const value = {
     values: {
       productsResult,
       isFetching,
-      // productsCart,
       totalCart,
       qntItens,
     },
     actions: {
       setProductsResult,
-      // setProductsCart,
       setTotalCart,
       setQntItens,
     },
@@ -29,7 +26,6 @@ export default function ProductsProvider({ children }) {
   useEffect(() => {
     const valorInicial = 0;
     const productsCart = JSON.parse(localStorage.getItem('productsCart')) || [];
-    console.log(productsCart);
     const totalAmountCustomer = productsCart
       .reduce((acc, { total }) => acc + parseFloat(total), valorInicial);
     localStorage.setItem('totalAmountCustomer', JSON.stringify(totalAmountCustomer));

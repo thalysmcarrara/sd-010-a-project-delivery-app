@@ -1,9 +1,10 @@
 import { useContext } from 'react';
 import ProductsContext from '../context/ProductsContext';
 
-const productData = ({ id, price, inputQuantity }) => {
+const productData = ({ id, name, price, inputQuantity }) => {
   const updateProd = {
     id,
+    name,
     quantity: inputQuantity,
     price,
     total: inputQuantity * price,
@@ -17,7 +18,7 @@ const useProductManager = () => {
 
   const setProduct = (data) => {
     const { id, inputQuantity } = data;
-    const [{ price }] = productsResult.filter((prod) => prod.id === Number(id));
+    const [{ price, name }] = productsResult.filter((prod) => prod.id === Number(id));
 
     const productsCartLS = JSON.parse(localStorage.getItem('productsCart')) || [];
     let updatedDataProduct = {};
@@ -26,7 +27,7 @@ const useProductManager = () => {
 
     if (productIndex < 0) {
       updatedDataProduct = productData({
-        id, price, inputQuantity });
+        id, name, price, inputQuantity });
 
       productsCartLS.push(updatedDataProduct);
       localStorage.setItem('productsCart', JSON.stringify(productsCartLS));
@@ -37,7 +38,7 @@ const useProductManager = () => {
         localStorage.setItem('productsCart', JSON.stringify(newShopCart));
       } else {
         updatedDataProduct = productData({
-          id, price, inputQuantity });
+          id, name, price, inputQuantity });
         newShopCart.splice(productIndex, 1, updatedDataProduct);
         localStorage.setItem('productsCart', JSON.stringify(newShopCart));
       }

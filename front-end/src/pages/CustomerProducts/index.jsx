@@ -28,7 +28,7 @@ function CustomerProducts() {
     <>
       <NavBar />
       <main className="main-cards">
-        <CardProduto checkout={ setDisabledBtn } />
+        <CardProduto />
       </main>
 
       <ButtonPrimary
