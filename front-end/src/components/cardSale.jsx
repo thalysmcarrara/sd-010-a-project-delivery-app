@@ -10,21 +10,23 @@ export default function CardSale({ sale }) {
   const url = location.includes('seller')
     ? 'seller' : 'costumer';
   return (
-    <Link to={ `localhost:3000/${url}/orders/${sale.id}` }>
-      <div data-testid={ `${testIdPart}__element-order-date-${sale.id}` }>
-        <div>
-          <p>Pedido</p>
-          <p>{ sale.id }</p>
+    <div data-testid={ `customer_orders__element-order-id--${sale.id}` }>
+      <Link to={ `/customer/orders/${sale.id}` }>
+        <div data-testid={ `${testIdPart}__element-order-date--${sale.id}` }>
+          <div>
+            <p>Pedido</p>
+            <p>{ sale.id }</p>
+          </div>
+          <div>
+            <Status status={ sale.status } />
+          </div>
+          <div>
+            <p>{ sale.saleDate }</p>
+            <h1>{ sale.totalPrice }</h1>
+          </div>
         </div>
-        <div>
-          <Status status={ sale.status } />
-        </div>
-        <div>
-          <p>{ sale.saleDate }</p>
-          <h1>{ sale.totalPrice }</h1>
-        </div>
-      </div>
-    </Link>
+      </Link>
+    </div>
   );
 }
 
