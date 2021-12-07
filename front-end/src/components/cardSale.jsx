@@ -6,24 +6,37 @@ import Status from './status';
 export default function CardSale({ sale }) {
   const location = useLocation().pathname;
   const testIdPart = location.includes('seller')
-    ? 'seller_orders' : 'customer_products';
+    ? 'seller_orders' : 'customer_orders';
   const url = location.includes('seller')
-    ? 'seller' : 'costumer';
+    ? 'seller' : 'customer';
   console.log(url);
+  
   return (
-    <div data-testid={ `customer_orders__element-order-id--${sale.id}` }>
+    <div>
       <Link to={ `/customer/orders/${sale.id}` }>
-        <div data-testid={ `${testIdPart}__element-order-date--${sale.id}` }>
+        <div>
           <div>
             <p>Pedido</p>
-            <p>{ sale.id }</p>
+            <p
+              data-testid={ `customer_orders__element-order-id--${sale.id}` }
+            >
+              { sale.id }
+            </p>
           </div>
           <div>
-            <Status status={ sale.status } />
+            <Status status={ sale.status } id={ sale.id } />
           </div>
           <div>
-            <p>{ sale.saleDate }</p>
-            <h1>{ sale.totalPrice }</h1>
+            <p
+              data-testid={ `${testIdPart}__element-order-date--${sale.id}` }
+            >
+              { new Intl.DateTimeFormat('pt-BR').format(new Date(sale.saleDate)) }
+            </p>
+            <h1
+              data-testid={ `customer_orders__element-card-price--${sale.id}` }
+            >
+              { sale.totalPrice.replace(/\./, ',') }
+            </h1>
           </div>
         </div>
       </Link>
