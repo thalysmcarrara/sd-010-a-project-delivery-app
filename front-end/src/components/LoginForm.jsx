@@ -22,20 +22,20 @@ export default function Login() {
     navigate(redirectRoutes[user.role]);
   };
 
-const recuperarLocalStorage = async (key) => {
-  const userLocalStorage = localStorage.length;
-  if (userLocalStorage < 1) return
-  return JSON.parse(localStorage.getItem(key))
-}
+  const recuperarLocalStorage = async (key) => {
+    const userLocalStorage = localStorage.length;
+    if (userLocalStorage < 1) return;
+    return JSON.parse(localStorage.getItem(key));
+  };
 
-const tratarUserLocal = async () => {
-  const userLocalTratar = await recuperarLocalStorage('user');
-  if (userLocalTratar) return navigate(redirectRoutes[userLocalTratar.role]);
-}
+  const tratarUserLocal = async () => {
+    const userLocalTratar = await recuperarLocalStorage('user');
+    if (userLocalTratar) return navigate(redirectRoutes[userLocalTratar.role]);
+  };
 
-  useEffect(() => { 
-    tratarUserLocal()
-  }, [])
+  useEffect(() => {
+    tratarUserLocal();
+  }, []);
 
   return (
     <>
@@ -68,7 +68,7 @@ const tratarUserLocal = async () => {
             } }
           />
         </label>
-        
+        <h2>{passwordInput}</h2>
         <br />
         <button
           data-testid="common_login__button-login"
