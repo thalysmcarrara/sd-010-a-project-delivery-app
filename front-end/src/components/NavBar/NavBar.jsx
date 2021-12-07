@@ -8,7 +8,7 @@ import LinkLogout from './LinkLogout';
 function NavBar() {
   const path = useLocation().pathname;
   return (
-    <div data-testid="customer_products__element-navbar-link-products">
+    <div>
       { path.includes('customer')
         ? <LinkProducts />
         : null}
