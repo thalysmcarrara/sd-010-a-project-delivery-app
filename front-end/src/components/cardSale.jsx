@@ -10,7 +10,7 @@ export default function CardSale({ sale }) {
   const url = location.includes('seller')
     ? 'seller' : 'customer';
   console.log(url);
-  
+
   return (
     <div>
       <Link to={ `/customer/orders/${sale.id}` }>
