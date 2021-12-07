@@ -7,8 +7,9 @@ export default function CardSale({ sale }) {
   const location = useLocation().pathname;
   const testIdPart = location.includes('seller')
     ? 'seller_orders' : 'customer_products';
-  // const url = location.includes('seller')
+  const url = location.includes('seller')
     ? 'seller' : 'costumer';
+  console.log(url);
   return (
     <div data-testid={ `customer_orders__element-order-id--${sale.id}` }>
       <Link to={ `/customer/orders/${sale.id}` }>
