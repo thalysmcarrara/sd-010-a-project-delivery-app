@@ -7,13 +7,16 @@ export default function SalesList() {
   useEffect(() => {
     const getSales = async () => {
       const { token } = JSON.parse(localStorage.getItem('user'));
-      const path = window.location.href;
-      const url = path.includes('seller')
-        ? '/seller/sales' : '/user/sales';
-      console.log(url);
-      const response = await api(url, { headers: { authentication: token } });
-      console.log(response);
-      setSales([]);
+      // const path = window.location.href;
+      // const url = path.includes('seller')
+      //   ? '/seller/sales' : '/user/sales';
+
+      const response = await api
+        .get('/sales/orders', { headers: { authorization: token } });
+
+      console.log(response.data);
+
+      setSales(response.data);
     };
     getSales();
   }, []);

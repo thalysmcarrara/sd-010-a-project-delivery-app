@@ -20,8 +20,8 @@ export default function CardSale({ sale }) {
           <Status status={ sale.status } />
         </div>
         <div>
-          <p>{ sale.sale_date }</p>
-          <h1>{ sale.total_price }</h1>
+          <p>{ sale.saleDate }</p>
+          <h1>{ sale.totalPrice }</h1>
         </div>
       </div>
     </Link>
