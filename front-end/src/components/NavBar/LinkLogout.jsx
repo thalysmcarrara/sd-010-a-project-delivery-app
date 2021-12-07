@@ -12,6 +12,7 @@ function LinkLogout() {
       type="button"
       data-testid="customer_products__element-navbar-link-logout"
       onClick={ handleCLickLogout }
+      className="c_navbar__link_checkout"
     >
       Sair
     </button>

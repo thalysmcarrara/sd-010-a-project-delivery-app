@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles.css';
 import { useLocation } from 'react-router';
 import LinkProducts from './LinkProducts';
 import LinkOrders from './LinkOrders';
@@ -8,14 +9,18 @@ import LinkLogout from './LinkLogout';
 function NavBar() {
   const path = useLocation().pathname;
   return (
-    <div data-testid="customer_products__element-navbar-link-products">
-      { path.includes('customer')
-        ? <LinkProducts />
-        : null}
-      <LinkOrders />
-      <UserFullName />
-      <LinkLogout />
-    </div>
+    <navbar className="c_navbar">
+      <div className="c_navbar__container__links">
+        { path.includes('customer')
+          ? <LinkProducts />
+          : null}
+        <LinkOrders />
+      </div>
+      <div className="c_navbar__container_username">
+        <UserFullName />
+        <LinkLogout />
+      </div>
+    </navbar>
   );
 }
 

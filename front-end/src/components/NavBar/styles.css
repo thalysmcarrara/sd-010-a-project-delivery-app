@@ -1,0 +1,43 @@
+.c_navbar {
+  background: var(--color-primary);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  width: 100vw;
+}
+
+
+.c_navbar__links {
+  color: var(--text-light);
+  cursor: pointer;
+  line-height: 80px;
+  min-width: 15vw;
+  padding: 0 10px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.c_navbar__links .active {
+  background: var(--color-secondary);
+  color: var(--text-dark);
+}
+
+.c_navbar__container_username {
+  background-color: var(--color-tertiary);
+  color: var(--text-light);
+  display: flex;
+  min-width: 15vw;
+  text-align: center;
+}
+
+.c_navbar__link_checkout {
+  align-items: center;
+  background-color: var(--color-quaternary);
+  border: none;
+  color: var(--text-light);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  min-width: 10vw;
+  padding: 0 10px;
+}

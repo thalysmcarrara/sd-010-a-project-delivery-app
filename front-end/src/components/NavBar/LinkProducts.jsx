@@ -6,6 +6,7 @@ function LinkProducts() {
     <Link
       to="/customer/products"
       data-testid="customer_products__element-navbar-link-products"
+      className="c_navbar__links c_navbar__link__products"
     >
       Produtos
     </Link>

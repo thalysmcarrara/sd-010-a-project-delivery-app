@@ -6,6 +6,7 @@ function UserFullName() {
   return (
     <h2
       data-testid="customer_products__element-navbar-user-full-name"
+      className="c_navbar__username"
     >
       { user.name }
     </h2>
