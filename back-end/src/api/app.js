@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 
+const middlewares = require('../middlewares');
+const routes = require('../routes');
 
 const app = express();
 const server = http.createServer(app);
@@ -16,7 +18,7 @@ const server = http.createServer(app);
     const middlewares = require('../middlewares');
     const routes = require('../routes'); */
     
-const { update } = require('../services');
+// const { update } = require('../services');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
