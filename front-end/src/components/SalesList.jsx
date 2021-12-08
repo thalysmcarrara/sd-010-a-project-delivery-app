@@ -14,7 +14,7 @@ export default function SalesList() {
       const response = await api
         .get('/sales/orders', { headers: { authorization: token } });
 
-      console.log(response.data);
+      // console.log(response.data);
 
       setSales(response.data);
     };

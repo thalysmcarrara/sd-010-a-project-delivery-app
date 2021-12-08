@@ -15,7 +15,7 @@ export default function registerValidation(name, email, password) {
       .required(),
   });
   const { error } = schema.validate({ name, email, password });
-  console.log(error);
+  // console.log(error);
   if (!error) {
     return true;
   }
