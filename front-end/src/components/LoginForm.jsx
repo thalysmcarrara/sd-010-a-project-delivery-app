@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import emailValidation from '../validations/loginValidation';
 import fetchPostUser from '../services/fetchPostUser';
@@ -21,6 +21,21 @@ export default function Login() {
     localStorage.setItem('user', JSON.stringify(user));
     navigate(redirectRoutes[user.role]);
   };
+
+  const recuperarLocalStorage = async (key) => {
+    const userLocalStorage = localStorage.length;
+    if (userLocalStorage < 1) return;
+    return JSON.parse(localStorage.getItem(key));
+  };
+
+  const tratarUserLocal = async () => {
+    const userLocalTratar = await recuperarLocalStorage('user');
+    if (userLocalTratar) return navigate(redirectRoutes[userLocalTratar.role]);
+  };
+
+  useEffect(() => {
+    tratarUserLocal();
+  }, []);
 
   return (
     <>

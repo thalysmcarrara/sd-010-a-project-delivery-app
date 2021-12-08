@@ -8,6 +8,7 @@ function LinkOrders() {
     <Link
       to={ url }
       data-testid="customer_products__element-navbar-link-orders"
+      className="c_navbar__links c_navbar__link__orders"
     >
       Meus pedidos
     </Link>
