@@ -13,12 +13,12 @@ export default function CardSale({ sale }) {
 
   return (
     <div>
-      <Link to={ `/customer/orders/${sale.id}` }>
+      <Link to={ `/${url}/orders/${sale.id}` }>
         <div>
           <div>
             <p>Pedido</p>
             <p
-              data-testid={ `customer_orders__element-order-id--${sale.id}` }
+              data-testid={ `${testIdPart}__element-order-id--${sale.id}` }
             >
               { sale.id }
             </p>
@@ -33,7 +33,7 @@ export default function CardSale({ sale }) {
               { new Intl.DateTimeFormat('pt-BR').format(new Date(sale.saleDate)) }
             </p>
             <h1
-              data-testid={ `customer_orders__element-card-price--${sale.id}` }
+              data-testid={ `${testIdPart}__element-card-price--${sale.id}` }
             >
               { sale.totalPrice.replace(/\./, ',') }
             </h1>
