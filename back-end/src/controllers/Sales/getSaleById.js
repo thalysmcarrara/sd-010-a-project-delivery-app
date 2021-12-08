@@ -1,4 +1,4 @@
-const { Sale, SalesProduct, Product } = require('../../database/models');
+const { Sale, Product } = require('../../database/models');
 const takeToken = require('../../services/takeToken');
 
 const getSaleById = async (req, res) => {
@@ -6,10 +6,10 @@ const getSaleById = async (req, res) => {
 
   const payload = takeToken(authorization);
 
-  const id = payload.id;
+  const { id } = payload;
 
   const rawResults = await Sale.findOne({ 
-    where: { user_id: id },
+    where: { userId: id },
     include: [{ model: Product, as: 'products' }],
   });
 

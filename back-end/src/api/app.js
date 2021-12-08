@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 
+const { update } = require('../services');
 const app = express();
 const server = http.createServer(app);
 const io = require('socket.io')(server, {
@@ -12,7 +13,6 @@ const io = require('socket.io')(server, {
       origin: 'http://localhost:3000', 
       methods: ['GET', 'POST'], 
     } });
-// const { getSaleById, update } = require('../services');
 const middlewares = require('../middlewares');
 const routes = require('../routes');
 
@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, '../', '../', 'public')));
 app.use(middlewares.routeNotFound);
 app.use(middlewares.errorMiddleware);
 
-/* io.on('connection', (socket) => {
+io.on('connection', (socket) => {
     console.log('conectou');
     socket.on('getSale', async (id) => {
         const sale = await getSaleById(id);
@@ -40,6 +40,6 @@ app.use(middlewares.errorMiddleware);
         const updated = await getSaleById(id);
         io.emit('takeSale', updated);
     });
-}); */
+});
 
 module.exports = server;
