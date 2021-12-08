@@ -10,7 +10,7 @@ export default function FormDetailsAddress() {
   const [seller, setSeller] = useState('');
   const [isFetching, setIsFetching] = useState(false);
   const redirect = useNavigate();
-  const { values: { totalCart } } = useContext(ProductsContext);
+  const { values: { totalCart }, actions: { setQntItens, setTotalCart } } = useContext(ProductsContext);
 
   const [users, setUsers] = useState([]);
 
@@ -39,6 +39,8 @@ export default function FormDetailsAddress() {
     // post retorna id
     console.log(sale);
     // const id = 1;
+    await setQntItens({});
+    await setTotalCart(0);
     redirect(`/customer/orders/${sale.id}`);
   };
 
