@@ -37,7 +37,7 @@ export default function FormDetailsAddress() {
     };
     const sale = await postSale(saleData);
     // post retorna id
-    console.log(sale);
+    // console.log(sale);
     // const id = 1;
     redirect(`/customer/orders/${sale.id}`);
   };

@@ -9,7 +9,7 @@ export default function CardSale({ sale }) {
     ? 'seller_orders' : 'customer_orders';
   const url = location.includes('seller')
     ? 'seller' : 'customer';
-  console.log(url);
+  // console.log(url);
 
   return (
     <div>
