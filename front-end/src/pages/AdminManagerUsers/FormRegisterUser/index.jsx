@@ -26,11 +26,15 @@ const FormRegisterUser = () => {
 
   const submitApiData = useCallback(() => {
     const fetchPostData = (userData) => api.post('/user/admin', userData, { headers })
-      .then((response) => response.data)
+      .then((response) => {
+        const { name, email, role } = formState;
+        setUser({ name, email, role });
+        return response.data;
+      })
       .catch((error) => error.response.data);
     const { name, email, password, role } = formState;
     return fetchPostData({ name, email, password, role });
-  }, [formState, headers]);
+  }, [formState, headers, setUser]);
 
   const { execute, status, value, error } = useAsync(submitApiData, false);
 
@@ -51,26 +55,23 @@ const FormRegisterUser = () => {
     execute();
   };
 
-  const http200 = 200;
-  const http300 = 300;
-
   useEffect(() => {
     if (status === 'idle' || status === 'pending') {
       return;
     }
     if (status === 'success') {
-      if (value.status >= http200 && status < http300) {
-        const { name, email, role } = formState;
-        setUser({ name, email, role });
+      if (value.message) {
+        setMessageErrorBackend(value.message);
         return;
       }
-      setMessageErrorBackend(value.message);
+      // const { name, email, role } = formState;
+      // setUser({ name, email, role });
       return;
     }
     if (status === 'error') {
       setMessageErrorBackend(error.message);
     }
-  }, [status, setUser, formState, setMessageErrorBackend, error, value]);
+  }, [status, setUser, setMessageErrorBackend, error, value]);
 
   return (
     <div>

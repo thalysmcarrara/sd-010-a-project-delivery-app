@@ -1,7 +1,7 @@
 const express = require('express');
 const rescue = require('express-rescue');
 
-const { createSale } = require('../controllers/Sales');
+const { createSale, updateSale } = require('../controllers/Sales');
 const { getAllSalesById } = require('../controllers/Sales');
 const { getAllSales } = require('../controllers/Sales');
 
@@ -10,6 +10,7 @@ const router = express.Router();
 router
   .post('/', rescue(createSale))
   .get('/orders', rescue(getAllSalesById))
-  .get('/:id', rescue(getAllSales));
+  .get('/:id', rescue(getAllSales))
+  .put('/:id', rescue(updateSale));
 
 module.exports = router;

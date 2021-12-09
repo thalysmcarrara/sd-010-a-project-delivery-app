@@ -6,7 +6,7 @@ import moment from 'moment-timezone';
 import OrdersTable from '../OrdersTable';
 import formatPrice from '../../utils/formatPrice';
 
-export default function DetailsSocket() {
+export default function CardOrdersCustomer() {
   const { id } = useParams();
   const socket = io('http://localhost:3001');
   const path = useLocation().pathname;
