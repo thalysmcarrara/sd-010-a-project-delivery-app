@@ -3,6 +3,7 @@ const { Sale, SalesProduct, Product } = require('../database/models');
 const getSaleById = async (id) => {    
     const rawResults = await Sale.findOne({
         raw: true,
+        nest: true,
          where: { id },         
           include: [{ model: SalesProduct, include: [{ model: Product }] }] });   
     console.log(rawResults);
