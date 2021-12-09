@@ -33,13 +33,15 @@ export default function CardOrdersCustomer() {
   };
   const renderButton = () => {
     const buttonValue = buttonText[sale.status];
-    const validateStatus = sale.status === 'Em Trânsito';
-    if (validateStatus && !path.includes('seller')) {
+    const validateStatus = sale.status !== 'Em Trânsito';
+    if (!path.includes('seller')) {
       return (
         <button
+          data-testid="customer_order_details__button-delivery-check"
           type="button"
           value={ buttonValue }
           onClick={ onClick }
+          disabled={ validateStatus }
         >
           {buttonValue}
 

@@ -1,25 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { io } from 'socket.io-client';
 import moment from 'moment-timezone';
 
 import OrdersTable from '../OrdersTable';
-import api from '../../services/api';
 import formatPrice from '../../utils/formatPrice';
 
 export default function CardOrdersSeller() {
   const { id } = useParams();
-  const [sales, setSales] = useState([]);
+  const socket = io('http://localhost:3001');
+  const [sales, setSale] = useState({});
   useEffect(() => {
-    const getSales = async () => {
-      const { token } = JSON.parse(localStorage.getItem('user'));
-      const response = await api
-        .get(`/sales/${id}`, { headers: { authorization: token } });
-
-      setSales(response.data);
-    };
-    getSales();
+    socket.emit('getSale', id);
+    socket.on('takeSale', (response) => {
+      setSale(response);
+    });
   }, []);
-
+  // const onClick = ({ target }) => {
+  //   const statusValue = { preparo: 'Preparando',
+  //     'saiu para entrega': 'Em Trânsito',
+  //     Entregue: 'Entregue' };
+  //   const status = statusValue[target.value];
+  //   console.log(status);
+  //   socket.emit('sendStatus', { id, status });
+  // };
   if (!sales) {
     return <p>Loading ... </p>;
   }
