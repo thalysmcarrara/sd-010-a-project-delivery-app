@@ -9,7 +9,6 @@ import formatPrice from '../../utils/formatPrice';
 export default function CardOrdersSeller() {
   const { id } = useParams();
   const [sales, setSales] = useState([]);
-
   useEffect(() => {
     const getSales = async () => {
       const { token } = JSON.parse(localStorage.getItem('user'));
@@ -35,11 +34,6 @@ export default function CardOrdersSeller() {
         >
           {`PEDIDO 0${sales.id}; `}
         </h3>
-        {/* <h3
-          data-testid="seller_order_details__element-order-details-label-seller-name"
-        >
-          {`P. Vend: ${sales.sellerName}`}
-        </h3> */}
         <h3
           data-testid="seller_order_details__element-order-details-label-order-date"
         >
