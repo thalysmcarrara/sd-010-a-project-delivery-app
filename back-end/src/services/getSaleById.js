@@ -1,8 +1,12 @@
-const { Sale, SalesProduct, Product } = require('../database/models');
+const { Sale, SalesProduct } = require('../database/models');
 
 const getSaleById = async (id) => {
-    const rawResults = await Sale.findOne({ raw: true, where: { id } },
-         { include: [{ model: SalesProduct, include: [{ model: Product }] }] });   
+    const testString = 'saleId';
+    const test = await SalesProduct.findAll();
+    console.log(test);
+    const rawResults = await Sale.findOne({ 
+         where: { id },         
+          include: [{ model: SalesProduct }] });   
     console.log(await rawResults);
     const modeled = { ...rawResults,
         products: rawResults.SalesProducts.map((product) => ({
@@ -12,7 +16,7 @@ const getSaleById = async (id) => {
             })),
         };
     delete modeled.SalesProducts;
-    return modeled;    
+    return modeled;        
 };
 
 module.exports = getSaleById;

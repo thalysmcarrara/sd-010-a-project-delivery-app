@@ -31,8 +31,7 @@ app.use(middlewares.errorMiddleware);
 io.on('connection', (socket) => {
     console.log('conectou');
     socket.on('getSale', async (id) => {
-        const sale = await getSaleById(id);
-        console.log(sale);
+        const sale = await getSaleById(id);            
         io.emit('takeSale', sale);
     });
     socket.on('sendStatus', async ({ id, status }) => {
