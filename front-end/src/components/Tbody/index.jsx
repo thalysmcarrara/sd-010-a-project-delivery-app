@@ -6,10 +6,10 @@ import ButtonTable from '../ButtonTable';
 const Tbody = ({ tbodyList }) => (
   <tbody>
     {
-      tbodyList.map(({ id, email, name, role }, index) => (
+      tbodyList.map(({ email, name, role }, index) => (
         <tr key={ `${index}_${name}` }>
           <Td
-            data={ id }
+            data={ index + 1 }
             dataTestId={ `admin_manage__element-user-table-item-number-<${index}>}` }
           />
 
@@ -30,7 +30,7 @@ const Tbody = ({ tbodyList }) => (
 
           <ButtonTable
             dataTestId={ `admin_manage__element-user-table-remove-<${index}>` }
-            data="Excluir"
+            nameButton="Excluir"
           />
         </tr>
       ))
