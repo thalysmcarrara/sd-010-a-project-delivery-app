@@ -1,21 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import useManagerUsersContext from '../../hooks/useManagerUsersContext';
-// import usersSerializeFiltered from '../../utils/usersSerializeFiltered';
+import api from '../../services/api';
 
-const ButtonTable = ({ dataTestId, data }) => {
-  // const { users } = useManagerUsersContext();
+const ButtonTable = ({ dataTestId, nameButton }) => {
+  const { token } = JSON.parse(localStorage.getItem('user')) || '';
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: token,
+  };
 
-  // const ArrayUsers = usersSerializeFiltered(users);
-  // console.log(ArrayUsers);
-  console.log('123');
+  const handleClick = async (e) => {
+    const trForDelete = e.target.parentNode.parentNode;
+    const email = e.target.parentNode.parentNode.childNodes[2].textContent;
+    try {
+      const { data: dataUsers } = await api.post('/user/email', { email });
+      await api.delete(`/user/${dataUsers.id}`, { headers });
+      trForDelete.remove();
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   return (
     <td>
       <button
         type="button"
         data-testid={ dataTestId }
+        onClick={ handleClick }
       >
-        {data}
+        {nameButton}
       </button>
     </td>
   );
@@ -23,7 +36,7 @@ const ButtonTable = ({ dataTestId, data }) => {
 
 ButtonTable.propTypes = {
   dataTestId: PropTypes.PropTypes.string.isRequired,
-  data: PropTypes.string.isRequired,
+  nameButton: PropTypes.string.isRequired,
 };
 
 export default ButtonTable;
