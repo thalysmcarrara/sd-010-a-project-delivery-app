@@ -52,17 +52,17 @@ export default function CardOrdersCustomer() {
         >
           {moment(sale.saleDate).format('DD/MM/YYYY')}
         </h3>
-        {/* <div> */}
-        <h1
-          data-testid={ delivery }
-        >
-          {sale.status}
-        </h1>
-        {/* </div> */}
+        <div>
+          <h1
+            data-testid={ delivery }
+          >
+            {sale.status}
+          </h1>
+        </div>
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
-          disabled={ sale.status !== 'Em Trânsito' || sale.status !== 'Em trânsito' }
+          disabled={ sale.status ? sale.status.toLowerCase() !== 'em trânsito' : null }
           onClick={ onClick }
           value="Entregue"
         >
