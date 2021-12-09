@@ -10,26 +10,26 @@ const Tbody = ({ tbodyList }) => (
         <tr key={ `${index}_${name}` }>
           <Td
             data={ index + 1 }
-            dataTestId={ `admin_manage__element-user-table-item-number-<${index}>}` }
+            dataTestId={ `admin_manage__element-user-table-item-number-${index}}` }
           />
 
           <Td
             data={ name }
-            dataTestId={ `admin_manage__element-user-table-name-<${index}>` }
+            dataTestId={ `admin_manage__element-user-table-name-${index}` }
           />
 
           <Td
             data={ email }
-            dataTestId={ `admin_manage__element-user-table-email-<${index}>` }
+            dataTestId={ `admin_manage__element-user-table-email-${index}` }
           />
 
           <Td
             data={ role }
-            dataTestId={ `admin_manage__element-user-table-role-<${index}>` }
+            dataTestId={ `admin_manage__element-user-table-role-${index}` }
           />
 
           <ButtonTable
-            dataTestId={ `admin_manage__element-user-table-remove-<${index}>` }
+            dataTestId={ `admin_manage__element-user-table-remove-${index}` }
             nameButton="Excluir"
           />
         </tr>
