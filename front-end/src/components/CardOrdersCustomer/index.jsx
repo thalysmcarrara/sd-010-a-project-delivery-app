@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router';
 import { io } from 'socket.io-client';
 import moment from 'moment-timezone';
@@ -9,13 +8,12 @@ import formatPrice from '../../utils/formatPrice';
 export default function CardOrdersCustomer() {
   const { id } = useParams();
   const socket = io('http://localhost:3001');
-  const path = useLocation().pathname;
   const [sale, setSale] = useState({});
-  const [buttonText] = useState({
-    Pendente: 'preparo',
-    Preparando: 'saiu para entrega',
-    'Em Trânsito': 'Entregue',
-  });
+  // const [buttonText] = useState({
+  //   Pendente: 'preparo',
+  //   Preparando: 'saiu para entrega',
+  //   'Em Trânsito': 'Entregue',
+  // });
 
   useEffect(() => {
     socket.emit('getSale', id);
@@ -24,42 +22,11 @@ export default function CardOrdersCustomer() {
     });
   }, []);
   const onClick = ({ target }) => {
-    const statusValue = { preparo: 'Preparando',
-      'saiu para entrega': 'Em Trânsito',
-      Entregue: 'Entregue' };
-    const status = statusValue[target.value];
-    console.log(status);
-    socket.emit('sendStatus', { id, status });
-  };
-  const renderButton = () => {
-    const buttonValue = buttonText[sale.status];
-    const validateStatus = sale.status !== 'Em Trânsito';
-    if (!path.includes('seller')) {
-      return (
-        <button
-          data-testid="customer_order_details__button-delivery-check"
-          type="button"
-          value={ buttonValue }
-          onClick={ onClick }
-          disabled={ validateStatus }
-        >
-          {buttonValue}
-
-        </button>
-      );
-    }
-    if (!validateStatus && path.includes('seller')) {
-      return (
-        <button
-          type="button"
-          value={ buttonValue }
-          onClick={ onClick }
-        >
-          {buttonValue}
-        </button>
-      );
-    }
-    return null;
+    // const statusValue = { preparo: 'Preparando',
+    //   'saiu para entrega': 'Em Trânsito',
+    //   Entregue: 'Entregue' };
+    // const status = statusValue[target.value];
+    socket.emit('sendStatus', { id, status: target.value });
   };
   if (!sale) {
     return <p>Loading ... </p>;
@@ -85,21 +52,22 @@ export default function CardOrdersCustomer() {
         >
           {moment(sale.saleDate).format('DD/MM/YYYY')}
         </h3>
-        <div>
-          <h1
-            data-testid={ delivery }
-          >
-            {sale.status}
-          </h1>
-        </div>
-        {/* <button
+        {/* <div> */}
+        <h1
+          data-testid={ delivery }
+        >
+          {sale.status}
+        </h1>
+        {/* </div> */}
+        <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
-          disabled
+          disabled={ sale.status !== 'Em Trânsito' }
+          onClick={ onClick }
+          value="Entregue"
         >
           Marcar como Entregue
-        </button> */}
-        { renderButton() }
+        </button>
       </div>
       <div>
         { sale.products
