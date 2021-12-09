@@ -8,6 +8,7 @@ import StyledLogin from './styles';
 import { requestLogin, requestUserInfo } from '../../services/api';
 import useForm from '../../hooks/useForm';
 import { useUser } from '../../contexts/userContext';
+import logo from '../../images/logov2.png';
 
 const Login = () => {
   const history = useHistory();
@@ -85,7 +86,7 @@ const Login = () => {
 
   return (
     <StyledLogin>
-      <img src="" alt="logo" />
+      <img src={ logo } alt="logo" />
       <Form onSubmit={ handleSubmit(goToProductsPage) }>
         <label htmlFor="email">
           <input

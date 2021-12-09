@@ -7,6 +7,10 @@ const StyledLogin = styled.div`
   justify-content: center;
   align-items: center;
 
+  img {
+    width: 350px;
+  }
+
   input {
     border-radius: 15px;
   }
