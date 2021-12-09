@@ -18,29 +18,27 @@ import OrdersTable from './OrdersTable';
 
 export default function DetailsSocket() {
   const { id } = useParams();
-
+  const socket = io('http://localhost:3001');
   const path = useLocation().pathname;
   const [sale, setSale] = useState({});
   const [buttonText] = useState({
-    pendente: 'preparo',
-    preparando: 'saiu para entrega',
+    Pendente: 'preparo',
+    Preparando: 'saiu para entrega',
     'Em Trânsito': 'Entregue',
   });
 
   useEffect(() => {
-    const socket = io('http://localhost:3001');
     socket.emit('getSale', id);
     socket.on('takeSale', (response) => {
-      // console.log('SALE', response);
       setSale(response);
     });
-  }, [id]);
+  }, []);
   const onClick = ({ target }) => {
-    const socket = io('http://localhost:3000');
     const statusValue = { preparo: 'Preparando',
       'saiu para entrega': 'Em Trânsito',
       Entregue: 'Entregue' };
     const status = statusValue[target.value];
+    console.log(status);
     socket.emit('sendStatus', { id, status });
   };
   const renderButton = () => {
@@ -81,7 +79,7 @@ export default function DetailsSocket() {
       </div>
       <div>
         { sale.products ? <OrdersTable orderList={ sale.products } /> : null }
-        <h1>{`Total: R$${sale.total_price}`}</h1>
+        <h1>{`Total: R$${sale.totalPrice}`}</h1>
       </div>
     </div>
   );

@@ -35,6 +35,7 @@ io.on('connection', (socket) => {
         io.emit('takeSale', sale);
     });
     socket.on('sendStatus', async ({ id, status }) => {
+        console.log('foi chamado');
         await update('sales', { id }, { status });
         const updated = await getSaleById(id);
         io.emit('takeSale', updated);

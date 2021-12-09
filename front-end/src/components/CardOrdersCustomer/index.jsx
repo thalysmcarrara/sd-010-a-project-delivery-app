@@ -1,27 +1,65 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useParams } from 'react-router';
+import { io } from 'socket.io-client';
 import moment from 'moment-timezone';
-
 import OrdersTable from '../OrdersTable';
-import api from '../../services/api';
 import formatPrice from '../../utils/formatPrice';
 
 export default function CardOrdersCustomer() {
   const { id } = useParams();
-  const [sales, setSales] = useState([]);
+  const socket = io('http://localhost:3001');
+  const path = useLocation().pathname;
+  const [sale, setSale] = useState({});
+  const [buttonText] = useState({
+    Pendente: 'preparo',
+    Preparando: 'saiu para entrega',
+    'Em Trânsito': 'Entregue',
+  });
 
   useEffect(() => {
-    const getSales = async () => {
-      const { token } = JSON.parse(localStorage.getItem('user'));
-      const response = await api
-        .get(`/sales/${id}`, { headers: { authorization: token } });
+    socket.emit('getSale', id);
+    socket.on('takeSale', (response) => {
+      setSale(response);
+    });
+  }, []);
+  const onClick = ({ target }) => {
+    const statusValue = { preparo: 'Preparando',
+      'saiu para entrega': 'Em Trânsito',
+      Entregue: 'Entregue' };
+    const status = statusValue[target.value];
+    console.log(status);
+    socket.emit('sendStatus', { id, status });
+  };
+  const renderButton = () => {
+    const buttonValue = buttonText[sale.status];
+    const validateStatus = sale.status === 'Em Trânsito';
+    if (validateStatus && !path.includes('seller')) {
+      return (
+        <button
+          type="button"
+          value={ buttonValue }
+          onClick={ onClick }
+        >
+          {buttonValue}
 
-      setSales(response.data);
-    };
-    getSales();
-  }, [id]);
-
-  if (!sales) {
+        </button>
+      );
+    }
+    if (!validateStatus && path.includes('seller')) {
+      return (
+        <button
+          type="button"
+          value={ buttonValue }
+          onClick={ onClick }
+        >
+          {buttonValue}
+        </button>
+      );
+    }
+    return null;
+  };
+  if (!sale) {
     return <p>Loading ... </p>;
   }
   const delivery = 'customer_order_details__element-order-details-label-delivery-status';
@@ -33,41 +71,42 @@ export default function CardOrdersCustomer() {
         <h3
           data-testid="customer_order_details__element-order-details-label-order-id"
         >
-          {`PEDIDO 0${sales.id}; `}
+          {`PEDIDO 0${sale.id}; `}
         </h3>
         <h3
           data-testid="customer_order_details__element-order-details-label-seller-name"
         >
-          {`P. Vend: ${sales.sellerName}`}
+          {`P. Vend: ${sale.sellerName}`}
         </h3>
         <h3
           data-testid="customer_order_details__element-order-details-label-order-date"
         >
-          {moment(sales.saleDate).format('DD/MM/YYYY')}
+          {moment(sale.saleDate).format('DD/MM/YYYY')}
         </h3>
         <div>
           <h1
             data-testid={ delivery }
           >
-            {sales.status}
+            {sale.status}
           </h1>
         </div>
-        <button
+        {/* <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
           disabled
         >
           Marcar como Entregue
-        </button>
+        </button> */}
+        { renderButton() }
       </div>
       <div>
-        { sales.products
-          ? <OrdersTable orderList={ sales.products } /> : null }
+        { sale.products
+          ? <OrdersTable orderList={ sale.products } /> : null }
         <h1>{'Total: R$ '}</h1>
         <h1
           data-testid="customer_order_details__element-order-total-price"
         >
-          { formatPrice(sales.totalPrice) }
+          { formatPrice(sale.totalPrice) }
         </h1>
       </div>
     </div>
