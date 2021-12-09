@@ -19,7 +19,7 @@ export default function CardOrdersCustomer() {
       setSales(response.data);
     };
     getSales();
-  }, []);
+  }, [id]);
 
   if (!sales) {
     return <p>Loading ... </p>;
