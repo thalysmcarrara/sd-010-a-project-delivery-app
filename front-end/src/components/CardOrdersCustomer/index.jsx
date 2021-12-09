@@ -62,7 +62,7 @@ export default function CardOrdersCustomer() {
         <button
           type="button"
           data-testid="customer_order_details__button-delivery-check"
-          disabled={ sale.status !== 'Em Trânsito' }
+          disabled={ sale.status !== 'Em Trânsito' || sale.status !== 'Em trânsito' }
           onClick={ onClick }
           value="Entregue"
         >
