@@ -61,6 +61,7 @@ export default function CardOrdersSeller() {
         <button
           type="button"
           data-testid="seller_order_details__button-dispatch-check"
+          disabled
         >
           SAIU PARA ENTREGA
         </button>
