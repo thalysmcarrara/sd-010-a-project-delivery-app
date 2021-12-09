@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { element } from 'prop-types';
 import lib from '../context';
 import isNotEmptyObject from '../utils/isNotEmptyObject';
-// import api from '../services/api';
+import api from '../services/api';
 
 const { ManagerUsersContext } = lib;
 
@@ -16,13 +16,17 @@ function ManagerUsersProvider({ children }) {
     setUser,
   };
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const usersData = await api.get('/user');
-  //     setUsers(usersData);
-  //   };
-  //   fetchData();
-  // }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await api.get('/user');
+        setUsers(data);
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     if (isNotEmptyObject(user)) {
