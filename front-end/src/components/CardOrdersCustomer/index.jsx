@@ -6,7 +6,7 @@ import OrdersTable from '../OrdersTable';
 import api from '../../services/api';
 import formatPrice from '../../utils/formatPrice';
 
-export default function DetailsSocket() {
+export default function CardOrdersCustomer() {
   const { id } = useParams();
   const [sales, setSales] = useState([]);
 

@@ -6,7 +6,7 @@ const getSaleById = async (id) => {
         nest: true,
          where: { id },         
           include: [{ model: SalesProduct, include: [{ model: Product }] }] });   
-    console.log(rawResults);
+    console.log('getSaleById/ rawResults: ', rawResults);
     const modeled = { ...rawResults,
         products: rawResults.SalesProducts.map((product) => ({
                 name: product.Products.name,
