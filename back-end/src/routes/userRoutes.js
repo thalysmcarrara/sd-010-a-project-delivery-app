@@ -13,6 +13,7 @@ routes
   .get('/:id', rescue(userController.findByIdUser))
   .get('/', rescue(userController.findAllUsers))
   .put('/:id', rescue(userController.updateUser))
-  .delete('/:id', rescue(userController.removeUser));
+  .delete('/:id', rescue(userController.removeUser))
+  .delete('/remove', rescue(userController.removeUser));
 
 module.exports = routes;
