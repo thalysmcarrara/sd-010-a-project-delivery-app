@@ -3,7 +3,7 @@ const { Sale, SalesProduct, Product } = require('../database/models');
 const getSaleById = async (id) => {
     const rawResults = await Sale.findOne({ raw: true, where: { id } },
          { include: [{ model: SalesProduct, include: [{ model: Product }] }] });   
-    console.log(await rawResults);
+    console.log('raw results::::', await rawResults);
     const modeled = { ...rawResults,
         products: rawResults.SalesProducts.map((product) => ({
                 name: product.Products.name,
